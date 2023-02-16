@@ -1,5 +1,5 @@
 import { Card, ConfigProvider, Layout, Message, Tabs } from '@arco-design/web-react';
-import { useEditorProps, useFocusIdx } from 'easy-email-editor';
+import { useEditorContext, useEditorProps, useFocusIdx } from 'easy-email-editor';
 import React, { useEffect } from 'react';
 import { InteractivePrompt } from '../InteractivePrompt';
 import styles from './index.module.scss';
@@ -12,6 +12,9 @@ import {
   ExtensionProvider,
 } from '@extensions/components/Providers/ExtensionProvider';
 import { AdvancedType } from 'easy-email-core';
+import { RichTextField } from '../components/Form/RichTextField';
+import { SelectionRangeProvider } from '@extensions/AttributePanel/components/provider/SelectionRangeProvider';
+import { PresetColorsProvider } from '@extensions/AttributePanel/components/provider/PresetColorsProvider';
 
 const defaultCategories: ExtensionProps['categories'] = [
   {
@@ -78,9 +81,16 @@ const defaultCategories: ExtensionProps['categories'] = [
 
 export const StandardLayout: React.FC<ExtensionProps> = props => {
   const { height: containerHeight } = useEditorProps();
-  const { showSourceCode = true, compact = true, categories = defaultCategories } = props;
+  const {
+    showSourceCode = true,
+    compact = true,
+    showEditPanel = true,
+    showConfigurationsPanel = true,
+    categories = defaultCategories
+  } = props;
 
-  const { setFocusIdx } = useFocusIdx();
+  const { focusIdx, setFocusIdx } = useFocusIdx();
+  const { initialized } = useEditorContext();
 
   useEffect(() => {
     if (!compact) {
@@ -108,12 +118,22 @@ export const StandardLayout: React.FC<ExtensionProps> = props => {
               display: 'flex',
               width: '100%',
               overflow: 'hidden',
+              flexDirection: 'row',
             }}
           >
-            {compact && <EditPanel />}
+            {compact && showEditPanel && <EditPanel />}
             <Layout style={{ height: containerHeight, flex: 1 }}>{props.children}</Layout>
-            {!compact && <EditPanel />}
-            {compact ? (
+            {!compact && showEditPanel && <EditPanel />}
+            {initialized && !showConfigurationsPanel && (
+              <SelectionRangeProvider>
+                <PresetColorsProvider>
+                  <div style={{ position: 'absolute' }}>
+                    <RichTextField idx={focusIdx} />
+                  </div>
+                </PresetColorsProvider>
+              </SelectionRangeProvider>
+            )}
+            {showConfigurationsPanel && (compact ? (
               <Layout.Sider
                 style={{
                   height: containerHeight,
@@ -130,7 +150,7 @@ export const StandardLayout: React.FC<ExtensionProps> = props => {
               </Layout.Sider>
             ) : (
               <Layout.Sider style={{ width: 0, overflow: 'hidden' }} />
-            )}
+            ))}
           </Layout>
         </Card>
         <InteractivePrompt />
