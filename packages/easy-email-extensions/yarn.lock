@@ -1264,6 +1264,11 @@
   dependencies:
     "@types/react" "*"
 
+"@types/react-shadow-dom-retarget-events@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@types/react-shadow-dom-retarget-events/-/react-shadow-dom-retarget-events-1.0.0.tgz#dabd1d467826f7988604d3c6e80bee02e1d17ef0"
+  integrity sha512-IVeyB+jl4l0j3QQxyouIMLc7T+6OqyYUKhaa2djyxrFJrL3BtEUhn2n5+IeRpvv1pwUl9yTUEyCeA98Gy2sexg==
+
 "@types/react@*":
   version "17.0.35"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-17.0.35.tgz#217164cf830267d56cd1aec09dcf25a541eedd4c"
@@ -3349,6 +3354,8 @@ globals@^13.6.0, globals@^13.9.0:
   version "13.12.0"
   resolved "https://registry.yarnpkg.com/globals/-/globals-13.12.0.tgz#4d733760304230a0082ed96e21e5c565f898089e"
   integrity sha512-uS8X6lSKN2JumVoXrbUz+uG4BYG+eiawqm3qFcT7ammfbUHeCBoJMlHcec/S3krSk73/AE/f0szYFmgAA3kYZg==
+  dependencies:
+    type-fest "^0.20.2"
 
 globby@^11.0.2, globby@^11.0.3, globby@^11.0.4:
   version "11.0.4"
@@ -5401,6 +5408,11 @@ react-refresh@^0.10.0:
   version "0.10.0"
   resolved "https://registry.yarnpkg.com/react-refresh/-/react-refresh-0.10.0.tgz#2f536c9660c0b9b1d500684d9e52a65e7404f7e3"
   integrity sha512-PgidR3wST3dDYKr6b4pJoqQFpPGNKDSCDx4cZoshjXipw3LzO7mG1My2pwEzz2JVkF+inx3xRpDeQLFQGH/hsQ==
+
+react-shadow-dom-retarget-events@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/react-shadow-dom-retarget-events/-/react-shadow-dom-retarget-events-1.1.0.tgz#ffe3a9dc4e6287b5239e863d0e5f1e392de0410a"
+  integrity sha512-hI/naZ8fUARf5He4PpvQtqhs/VWoocfg3ULeCOE3ccWiXGEsFpshlx2iB1XNtm2SFDdvZYoSo25a8JViYdAcgQ==
 
 react-transition-group@^4.3.0:
   version "4.4.2"
