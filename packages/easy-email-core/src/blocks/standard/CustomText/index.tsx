@@ -54,26 +54,13 @@ export const CustomText = createBlock<ICustomText>({
     if(!dataSource) {
       dataSource = {};
     }
-    if (new RegExp(`{{${data.attributes.mergeTagKey}.*}}`).test(data.data.value.content)) {
-      data.data.value.content = _.cloneDeep(dataSource)[data.attributes.mergeTagKey];
-    } else {
-      dataSource[data.attributes.mergeTagKey] = data.data.value.content;
-    }
-    let mjml = `{{${data.attributes.mergeTagKey}}}`;
-    const engine = new Liquid();
-    try {
-      mjml = engine.parseAndRenderSync(
-        mjml, dataSource
-      );
-    }
-    catch (err) {
-    }
+    dataSource[data.attributes.mergeTagKey] = data.data.value.content;
     return (
       <Text
         css-class={mode=='testing' ? getPreviewClassName(idx || null, data.type) : ''}
         {...data.attributes}
       >
-        {mjml}
+        {data.data.value.content}
       </Text>
     );
   },

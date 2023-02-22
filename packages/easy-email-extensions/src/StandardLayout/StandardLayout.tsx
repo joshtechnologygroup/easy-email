@@ -1,5 +1,5 @@
 import { Card, ConfigProvider, Layout, Message, Tabs } from '@arco-design/web-react';
-import { useEditorContext, useEditorProps, useFocusIdx } from 'easy-email-editor';
+import { getShadowRoot, useEditorContext, useEditorProps, useFocusIdx } from 'easy-email-editor';
 import React, { useEffect } from 'react';
 import { InteractivePrompt } from '../InteractivePrompt';
 import styles from './index.module.scss';
@@ -15,6 +15,7 @@ import { AdvancedType } from 'easy-email-core';
 import { RichTextField } from '../components/Form/RichTextField';
 import { SelectionRangeProvider } from '@extensions/AttributePanel/components/provider/SelectionRangeProvider';
 import { PresetColorsProvider } from '@extensions/AttributePanel/components/provider/PresetColorsProvider';
+import ReactDOM from 'react-dom';
 
 const defaultCategories: ExtensionProps['categories'] = [
   {
@@ -91,6 +92,7 @@ export const StandardLayout: React.FC<ExtensionProps> = props => {
 
   const { focusIdx, setFocusIdx } = useFocusIdx();
   const { initialized } = useEditorContext();
+  const shadowRoot = getShadowRoot();
 
   useEffect(() => {
     if (!compact) {
@@ -130,6 +132,19 @@ export const StandardLayout: React.FC<ExtensionProps> = props => {
                   <div style={{ position: 'absolute' }}>
                     <RichTextField idx={focusIdx} />
                   </div>
+                  {!!shadowRoot &&
+                    ReactDOM.createPortal(
+                      <style>
+                        {`
+                        .email-block [contentEditable="true"],
+                        .email-block [contentEditable="true"] * {
+                          outline: none;
+                          cursor: text;
+                        }
+                        `}
+                      </style>,
+                      shadowRoot as any,
+                    )}
                 </PresetColorsProvider>
               </SelectionRangeProvider>
             )}
