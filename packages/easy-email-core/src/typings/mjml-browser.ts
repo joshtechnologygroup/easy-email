@@ -39,3 +39,5 @@ interface IChildrenItem {
 interface IAttributes {
   [key: string]: any;
 }
+
+declare module 'json2mjml';

@@ -130,6 +130,7 @@ export function MjmlToJson(data: MjmlBlockItem | string): IPage {
             }) || [];
           payload.children = [];
         } else if (block.type === BasicType.CUSTOM_TEXT) {
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-call
           payload.data.value.content = json2mjml(item.children?.length ? item.children[0] : {});
         } else if (item.children) {
           payload.children = item.children.map(transform);
