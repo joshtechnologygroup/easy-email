@@ -4,6 +4,7 @@ import { BasicType } from '@core/constants';
 import { IBlockData } from '@core/typings';
 import { identity, isString, pickBy } from 'lodash';
 import { parseXMLtoBlock } from './parseXMLtoBlock';
+import json2mjml from 'json2mjml';
 
 export function MjmlToJson(data: MjmlBlockItem | string): IPage {
   if (isString(data)) return parseXMLtoBlock(data);
@@ -128,6 +129,9 @@ export function MjmlToJson(data: MjmlBlockItem | string): IPage {
               };
             }) || [];
           payload.children = [];
+        } else if (block.type === BasicType.CUSTOM_TEXT) {
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+          payload.data.value.content = json2mjml(item.children?.length ? item.children[0] : {});
         } else if (item.children) {
           payload.children = item.children.map(transform);
         }

@@ -17,7 +17,7 @@ export const Raw = createBlock<IRaw>({
       type: BasicType.RAW,
       data: {
         value: {
-          content: '<% if (user) { %>',
+          content: '',
         },
       },
       attributes: {},

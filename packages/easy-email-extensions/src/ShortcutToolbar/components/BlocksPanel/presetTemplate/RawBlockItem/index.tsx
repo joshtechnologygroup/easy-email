@@ -11,7 +11,7 @@ const list = [
       type: BasicType.RAW,
       data: {
         value: {
-          content: '<% if (user) { %>'
+          content: ''
         },
       },
     },
@@ -21,7 +21,7 @@ const list = [
       type: BasicType.RAW,
       data: {
         value: {
-          content: '<% } %>'
+          content: ''
         },
       },
     },
