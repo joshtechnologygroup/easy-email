@@ -44,6 +44,7 @@ export const CustomText = createBlock<ICustomText>({
       },
       attributes: {
         mergeTagKey: 'text',
+        padding: '0px 0px 0px 0px',
       },
       children: [],
     };

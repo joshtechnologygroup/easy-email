@@ -48,6 +48,7 @@ export function parseXMLtoBlock(text: string) {
     };
 
     switch (type) {
+      case BasicType.CUSTOM_TEXT:
       case BasicType.TEXT:
         block.data.value.content = node.innerHTML;
         block.children = [];

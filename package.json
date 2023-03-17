@@ -15,7 +15,11 @@
     "demo": "cd demo && yarn build",
     "test": "cd packages/easy-email-core && yarn test",
     "translate": "ts-node scripts/translate.ts",
-    "lint": "lerna exec -- yarn format"
+    "lint": "lerna exec -- yarn format",
+    "yalc:core": "cd packages/easy-email-core && yalc push",
+    "yalc:editor": "cd packages/easy-email-editor && yalc push",
+    "yalc:extensions": "cd packages/easy-email-extensions && yalc push",
+    "yalc-all": "yarn yalc:core && yarn yalc:editor && yarn yalc:extensions"
   },
   "dependencies": {
     "easy-localized-translation": "^1.0.2",
