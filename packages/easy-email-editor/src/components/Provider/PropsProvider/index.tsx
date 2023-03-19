@@ -46,6 +46,7 @@ export interface PropsProviderProps {
   ) => string | Promise<string>;
   enabledLogic?: boolean;
   locale?: Record<string, string>;
+  hideEditMode?: boolean;
 }
 
 const defaultMergeTagGenerate = (m: string) => `{{${m}}}`;

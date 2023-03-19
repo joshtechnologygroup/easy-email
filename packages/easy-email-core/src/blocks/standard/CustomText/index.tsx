@@ -51,13 +51,13 @@ export const CustomText = createBlock<ICustomText>({
     return merge(defaultData, payload);
   },
   validParentType: [BasicType.PAGE],
-  render: ({ data, idx, mode, context, dataSource }) => {
+  render: ({ mode, data, idx }) => {
     return (
       <Text
-        css-class={mode == 'testing' ? getPreviewClassName(idx || null, data.type) : ''}
-        {...data.attributes}
+      css-class={mode=='testing' ? getPreviewClassName(idx || null, data.type) : ''}
+      {...data.attributes}
       >
-        {data.data.value.content}
+      {data.data.value.content}
       </Text>
     );
   },
