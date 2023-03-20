@@ -34,7 +34,7 @@ export type ICustomText = IBlockData<
 export const CustomText = createBlock<ICustomText>({
   name: 'Editable Text',
   type: BasicType.CUSTOM_TEXT,
-  create: (payload) => {
+  create: payload => {
     const defaultData: ICustomText = {
       type: BasicType.CUSTOM_TEXT,
       data: {
@@ -44,6 +44,7 @@ export const CustomText = createBlock<ICustomText>({
       },
       attributes: {
         mergeTagKey: 'text',
+        padding: '0px 0px 0px 0px',
       },
       children: [],
     };
@@ -51,13 +52,9 @@ export const CustomText = createBlock<ICustomText>({
   },
   validParentType: [BasicType.PAGE],
   render: ({ data, idx, mode, context, dataSource }) => {
-    if(!dataSource) {
-      dataSource = {};
-    }
-    dataSource[data.attributes.mergeTagKey] = data.data.value.content;
     return (
       <Text
-        css-class={mode=='testing' ? getPreviewClassName(idx || null, data.type) : ''}
+        css-class={mode == 'testing' ? getPreviewClassName(idx || null, data.type) : ''}
         {...data.attributes}
       >
         {data.data.value.content}
