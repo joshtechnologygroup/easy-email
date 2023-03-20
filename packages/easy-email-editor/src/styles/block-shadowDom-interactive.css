@@ -15,6 +15,10 @@
   user-select: none;
 }
 
+.node-type-custom-text {
+  border: 1px solid #1890ff;
+}
+
 :not(.email-block) {
   -webkit-user-drag: none;
   cursor: default;

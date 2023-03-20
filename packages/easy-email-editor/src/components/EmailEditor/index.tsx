@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useEffect } from 'react';
 import { Stack } from '../UI/Stack';
 import { ToolsPanel } from './components/ToolsPanel';
 import { createPortal } from 'react-dom';
@@ -18,7 +18,7 @@ import { EventManager, EventType } from '@/utils/EventManager';
 (window as any).global = window; // react-codemirror
 
 export const EmailEditor = () => {
-  const { height: containerHeight } = useEditorProps();
+  const { height: containerHeight, hideEditMode } = useEditorProps();
   const { setActiveTab, activeTab } = useActiveTab();
 
   const fixedContainer = useMemo(() => {
@@ -32,6 +32,49 @@ export const EmailEditor = () => {
   const onChangeTab = useCallback((nextTab: string) => {
     setActiveTab(nextTab as any);
   }, [setActiveTab]);
+
+  useEffect(() => {
+    if(hideEditMode) {
+      setActiveTab(ActiveTabKeys.PC);
+    }
+  }, [hideEditMode, setActiveTab]);
+
+  const tabPanelList = useMemo(() => [
+    ...!hideEditMode ? [
+    <TabPane
+      style={{ height: 'calc(100% - 50px)' }}
+      tab={(
+        <Stack spacing='tight'>
+          <IconFont iconName='icon-editor' />
+        </Stack>
+      )}
+      key={ActiveTabKeys.EDIT}
+    >
+      <EditEmailPreview />
+    </TabPane>]
+    : [],
+  <TabPane
+    style={{ height: 'calc(100% - 50px)' }}
+    tab={(
+      <Stack spacing='tight'>
+        <IconFont iconName='icon-desktop' />
+      </Stack>
+    )}
+    key={ActiveTabKeys.PC}
+  >
+    <DesktopEmailPreview />
+  </TabPane>,
+  <TabPane
+    style={{ height: 'calc(100% - 50px)' }}
+    tab={(
+      <Stack spacing='tight'>
+        <IconFont iconName='icon-mobile' />
+      </Stack>
+    )}
+    key={ActiveTabKeys.MOBILE}
+  >
+    <MobileEmailPreview />
+  </TabPane>], [hideEditMode]);
 
   return useMemo(
     () => (
@@ -51,46 +94,14 @@ export const EmailEditor = () => {
           onBeforeChange={onBeforeChangeTab}
           onChange={onChangeTab}
           style={{ height: '100%', width: '100%' }}
-          tabBarExtraContent={<ToolsPanel />}
+          tabBarExtraContent={!hideEditMode && <ToolsPanel />}
         >
-          <TabPane
-            style={{ height: 'calc(100% - 50px)' }}
-            tab={(
-              <Stack spacing='tight'>
-                <IconFont iconName='icon-editor' />
-              </Stack>
-            )}
-            key={ActiveTabKeys.EDIT}
-          >
-            <EditEmailPreview />
-          </TabPane>
-          <TabPane
-            style={{ height: 'calc(100% - 50px)' }}
-            tab={(
-              <Stack spacing='tight'>
-                <IconFont iconName='icon-desktop' />
-              </Stack>
-            )}
-            key={ActiveTabKeys.PC}
-          >
-            <DesktopEmailPreview />
-          </TabPane>
-          <TabPane
-            style={{ height: 'calc(100% - 50px)' }}
-            tab={(
-              <Stack spacing='tight'>
-                <IconFont iconName='icon-mobile' />
-              </Stack>
-            )}
-            key={ActiveTabKeys.MOBILE}
-          >
-            <MobileEmailPreview />
-          </TabPane>
+          {tabPanelList}
         </Tabs>
 
         {fixedContainer}
       </div>
     ),
-    [activeTab, containerHeight, fixedContainer, onBeforeChangeTab, onChangeTab]
+    [activeTab, containerHeight, fixedContainer, onBeforeChangeTab, onChangeTab, tabPanelList, hideEditMode]
   );
 };
