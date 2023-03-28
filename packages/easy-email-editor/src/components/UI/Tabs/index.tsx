@@ -7,6 +7,7 @@ import './index.scss';
 
 export interface TabsProps {
   tabBarExtraContent?: React.ReactNode;
+  tabBarMiddleContent?: React.ReactNode;
   style?: React.CSSProperties;
   className?: string;
   onChange?: (id: string) => void;
@@ -74,6 +75,7 @@ const Tabs: React.FC<TabsProps> = (props) => {
               }
             )}
           </Stack>
+          {props.tabBarMiddleContent}
           {props.tabBarExtraContent}
         </Stack>
       </div>

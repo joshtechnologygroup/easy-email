@@ -18,7 +18,7 @@ import { EventManager, EventType } from '@/utils/EventManager';
 (window as any).global = window; // react-codemirror
 
 export const EmailEditor = () => {
-  const { height: containerHeight, hideEditMode } = useEditorProps();
+  const { height: containerHeight, hideEditMode, headerNode } = useEditorProps();
   const { setActiveTab, activeTab } = useActiveTab();
 
   const fixedContainer = useMemo(() => {
@@ -34,47 +34,47 @@ export const EmailEditor = () => {
   }, [setActiveTab]);
 
   useEffect(() => {
-    if(hideEditMode) {
+    if (hideEditMode) {
       setActiveTab(ActiveTabKeys.PC);
     }
   }, [hideEditMode, setActiveTab]);
 
   const tabPanelList = useMemo(() => [
     ...!hideEditMode ? [
+      <TabPane
+        style={{ height: 'calc(100% - 50px)' }}
+        tab={(
+          <Stack spacing='tight'>
+            <IconFont iconName='icon-editor' />
+          </Stack>
+        )}
+        key={ActiveTabKeys.EDIT}
+      >
+        <EditEmailPreview />
+      </TabPane>]
+      : [],
     <TabPane
       style={{ height: 'calc(100% - 50px)' }}
       tab={(
         <Stack spacing='tight'>
-          <IconFont iconName='icon-editor' />
+          <IconFont iconName='icon-desktop' />
         </Stack>
       )}
-      key={ActiveTabKeys.EDIT}
+      key={ActiveTabKeys.PC}
     >
-      <EditEmailPreview />
-    </TabPane>]
-    : [],
-  <TabPane
-    style={{ height: 'calc(100% - 50px)' }}
-    tab={(
-      <Stack spacing='tight'>
-        <IconFont iconName='icon-desktop' />
-      </Stack>
-    )}
-    key={ActiveTabKeys.PC}
-  >
-    <DesktopEmailPreview />
-  </TabPane>,
-  <TabPane
-    style={{ height: 'calc(100% - 50px)' }}
-    tab={(
-      <Stack spacing='tight'>
-        <IconFont iconName='icon-mobile' />
-      </Stack>
-    )}
-    key={ActiveTabKeys.MOBILE}
-  >
-    <MobileEmailPreview />
-  </TabPane>], [hideEditMode]);
+      <DesktopEmailPreview />
+    </TabPane>,
+    <TabPane
+      style={{ height: 'calc(100% - 50px)' }}
+      tab={(
+        <Stack spacing='tight'>
+          <IconFont iconName='icon-mobile' />
+        </Stack>
+      )}
+      key={ActiveTabKeys.MOBILE}
+    >
+      <MobileEmailPreview />
+    </TabPane>], [hideEditMode]);
 
   return useMemo(
     () => (
@@ -94,6 +94,7 @@ export const EmailEditor = () => {
           onBeforeChange={onBeforeChangeTab}
           onChange={onChangeTab}
           style={{ height: '100%', width: '100%' }}
+          tabBarMiddleContent={headerNode}
           tabBarExtraContent={!hideEditMode && <ToolsPanel />}
         >
           {tabPanelList}
@@ -102,6 +103,6 @@ export const EmailEditor = () => {
         {fixedContainer}
       </div>
     ),
-    [activeTab, containerHeight, fixedContainer, onBeforeChangeTab, onChangeTab, tabPanelList, hideEditMode]
+    [activeTab, containerHeight, fixedContainer, onBeforeChangeTab, onChangeTab, tabPanelList, hideEditMode, headerNode]
   );
 };

@@ -47,6 +47,7 @@ export interface PropsProviderProps {
   enabledLogic?: boolean;
   locale?: Record<string, string>;
   hideEditMode?: boolean;
+  headerNode?: React.ReactNode;
 }
 
 const defaultMergeTagGenerate = (m: string) => `{{${m}}}`;
