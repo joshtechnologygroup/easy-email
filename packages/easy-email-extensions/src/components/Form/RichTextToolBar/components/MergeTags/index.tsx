@@ -33,15 +33,15 @@ export function MergeTags(props: MergeTagsProps) {
       position='left'
       popupVisible={visible}
       onVisibleChange={onVisibleChange}
-      style={{ zIndex: 10 }}
-      content={
+      style={{ zIndex: 1200 }}
+      content={(
         <>
           <MergeTagsOptions
             value=''
             onChange={onChange}
           />
         </>
-      }
+      )}
       getPopupContainer={props.getPopupContainer}
     >
       <ToolItem
