@@ -95,7 +95,7 @@ export const EmailEditor = () => {
           onChange={onChangeTab}
           style={{ height: '100%', width: '100%' }}
           tabBarMiddleContent={headerNode}
-          tabBarExtraContent={!hideEditMode && <ToolsPanel />}
+          tabBarExtraContent={hideEditMode ? <div style={{ visibility: 'hidden' }}><ToolsPanel /></div> : <ToolsPanel />}
         >
           {tabPanelList}
         </Tabs>
