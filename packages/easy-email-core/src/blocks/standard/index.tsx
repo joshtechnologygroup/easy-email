@@ -24,6 +24,11 @@ import { BasicType } from '@core/constants';
 import { CustomText, ICustomText } from './CustomText';
 import { EmptyPage } from './EmptyPage';
 import { PodCustomPage } from './PodCustomPage';
+import { News, INews } from './News';
+import { Heading, IHeading } from './Heading';
+import { PostCard, IPostCard } from './PostCard';
+import { ThankyouCard, IThankyouCard } from './ThankyouCard';
+import { RoundedButton, IRoundedButton } from './RoundedButton';
 
 export const standardBlocks = {
   [BasicType.PAGE]: Page,
@@ -56,6 +61,11 @@ export const standardBlocks = {
   [BasicType.CUSTOM_TEXT]: CustomText,
   [BasicType.EMPTY_PAGE]: EmptyPage,
   [BasicType.POD_CUSTOM_PAGE]: PodCustomPage,
+  [BasicType.NEWS]: News,
+  [BasicType.HEADING]: Heading,
+  [BasicType.POST_CARD]: PostCard,
+  [BasicType.ROUNDED_BUTTON]: RoundedButton,
+  [BasicType.THANKYOU_CARD]: ThankyouCard,
 };
 
 export type {
@@ -81,4 +91,9 @@ export type {
   IAccordionText,
   ITemplate,
   ICustomText,
+  INews,
+  IHeading,
+  IPostCard,
+  IRoundedButton,
+  IThankyouCard,
 };

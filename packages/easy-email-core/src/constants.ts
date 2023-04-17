@@ -28,6 +28,11 @@ export enum BasicType {
   CUSTOM_TEXT = 'custom-text',
   EMPTY_PAGE = 'empty-page',
   POD_CUSTOM_PAGE = 'pod-custom-page',
+  NEWS = 'news',
+  HEADING = 'heading',
+  ROUNDED_BUTTON = 'rounded-button',
+  POST_CARD = 'post-card',
+  THANKYOU_CARD = 'thankyou-card',
 }
 
 // 高级组件

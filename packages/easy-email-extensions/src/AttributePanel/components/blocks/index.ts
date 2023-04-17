@@ -20,6 +20,11 @@ import { Navbar } from './Navbar';
 import { Social } from './Social';
 import { Table } from './Table';
 import { BasicType, AdvancedType } from 'easy-email-core';
+import { Heading } from './Heading';
+import { RoundedButton } from './RoundedButton';
+import { PostCard } from './PostCard';
+import { ThankyouCard } from './ThankyouCard';
+import { News } from './News';
 
 export const blocks = {
   [BasicType.PAGE]: Page,
@@ -58,4 +63,9 @@ export const blocks = {
   [AdvancedType.SECTION]: Section,
   [AdvancedType.GROUP]: Group,
   [AdvancedType.COLUMN]: Column,
+  [BasicType.NEWS]: News,
+  [BasicType.HEADING]: Heading,
+  [BasicType.POST_CARD]: PostCard,
+  [BasicType.THANKYOU_CARD]: ThankyouCard,
+  [BasicType.ROUNDED_BUTTON]: RoundedButton,
 };

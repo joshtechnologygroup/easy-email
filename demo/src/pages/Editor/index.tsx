@@ -90,6 +90,24 @@ const defaultCategories: ExtensionProps['categories'] = [
       {
         type: AdvancedType.WRAPPER,
       },
+      {
+        type: BasicType.HEADING,
+      },
+      {
+        type: BasicType.ROUNDED_BUTTON,
+      },
+      {
+        type: BasicType.POST_CARD,
+      },
+      {
+        type: BasicType.THANKYOU_CARD,
+      },
+      {
+        type: BasicType.SPACER,
+      },
+      {
+        type: BasicType.DIVIDER,
+      },
     ],
   },
   {
