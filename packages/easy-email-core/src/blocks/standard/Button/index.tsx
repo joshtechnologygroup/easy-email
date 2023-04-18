@@ -45,7 +45,10 @@ export const Button = createBlock<IButton>({
           content: 'Button',
         },
       },
-      attributes: {},
+      attributes: {
+        'inner-padding': '0px 0px 0px 0px',
+        padding: '0px 0px 0px 0px',
+      },
       children: [],
     };
     return merge(defaultData, payload);

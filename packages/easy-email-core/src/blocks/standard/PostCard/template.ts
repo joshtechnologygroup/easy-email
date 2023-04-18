@@ -18,18 +18,6 @@ export const MJML = `
             background-url="{{image}}"
             border-radius="4px"
           ></mj-hero >
-          <mj-spacer height="16px"></mj-spacer>
-          <mj-social align="left" icon-size="20px" text-padding="5px" padding="5px" container-background-color="#F9F9F9" border-radius="4px">
-              <mj-social-element src="{{attachmentImage}}" font-size="12px" font-weight="500" color="#000000" line-height="16px" >
-                PDF Attachment-1.pdf
-              </mj-social-element>
-          </mj-social>
-          <mj-spacer height="16px"></mj-spacer>
-          <mj-social align="left" icon-size="16px" text-padding="0 0 0 5px">
-              <mj-social-element src="https://i.ibb.co/ByHQbCD/bx-comment.png" font-size="14px" font-weight="400" color="#0A71D1" line-height="16px" href={{link}}>
-                  Be the first one to talk about <span>&gt;</span>
-              </mj-social-element>
-          </mj-social>
         </mj-column>
     </mj-section>
 </mj-wrapper>

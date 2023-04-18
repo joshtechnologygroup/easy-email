@@ -12,7 +12,10 @@ import { MJML } from './template';
 const engine = new Liquid();
 
 export type IRoundedButton = IBlockData<
-  {},
+  {
+    'inner-padding': string;
+    padding: string;
+  },
   {
     text: string;
     link: string;
@@ -32,7 +35,10 @@ export const RoundedButton = createBlock<IRoundedButton>({
           link: '#',
         },
       },
-      attributes: {},
+      attributes: {
+        'inner-padding': '0px 0px 0px 0px',
+        padding: '0px 0px 0px 0px',
+      },
       children: [],
     };
     return merge(defaultData, payload);
