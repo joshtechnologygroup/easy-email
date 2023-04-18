@@ -3,7 +3,7 @@ export const MJML = `
     <mj-section border-radius="8px 8px 0 0" background-color="#FFFFFF" padding="16px 16px 0" css-class="container">
         <mj-column>
             <mj-text font-size="20px" font-weight="500" line-height="32px" color="#222222">{{title}}</mj-text>
-            <mj-spacer height="10px"></mj-spacer>
+            <mj-spacer height="8px"></mj-spacer>
             <mj-text font-size="14px" font-weight="400" line-height="20px" color="#404040">{{description}}</mj-text>
             <mj-spacer height="20px"></mj-spacer>
         </mj-column>

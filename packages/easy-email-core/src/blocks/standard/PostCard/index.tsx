@@ -17,7 +17,7 @@ export type IPostCard = IBlockData<
     title: string;
     description: string;
     postLink: string;
-    img: string;
+    image: string;
     attachmentUrl?: string;
   }
 >;
@@ -29,12 +29,14 @@ export const PostCard = createBlock<IPostCard>({
     const defaultData: IPostCard = {
       type: BasicType.POST_CARD,
       data: {
+        // TODO: CP-25658: Update default data
         value: {
           title: 'Title',
           description:
             'Recusandae illum alias. Suscipit illo nulla nostrum explicabo pariatur a qui tenetur culpa. Repellendus',
           postLink: '#',
-          img: 'http://res.cloudinary.com/dwkp0e1yo/image/upload/v1681283275/xq0ybcd1j77zfxeoz9up.png',
+          image:
+            'http://res.cloudinary.com/dwkp0e1yo/image/upload/v1681283275/xq0ybcd1j77zfxeoz9up.png',
         },
       },
       attributes: {},
@@ -55,8 +57,10 @@ export const PostCard = createBlock<IPostCard>({
       title: data.value.title,
       description: truncatedDescription,
       link: data.value.postLink,
-      image: '',
-      ...(data.value.img ? { image: data.value.img } : {}),
+      ...(data.value.image ? { image: data.value.image } : {}),
+      // ...(data.value.attachmentUrl ? {
+      // TODO: CP-25658: Integrate attachemnt details, and update comment image src in template
+      // })
       class: mode === 'testing' && idx ? getPreviewClassName(idx, type) : '',
     };
 

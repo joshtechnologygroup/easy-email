@@ -1,17 +1,21 @@
 import { useEditorProps, useFocusIdx } from 'easy-email-editor';
-import { AttributesPanelWrapper, ImageUploaderField, TextField } from '@extensions';
+import {
+  AttributesPanelWrapper,
+  ImageUploaderField,
+  NumberField,
+  TextField,
+} from '@extensions';
 import React from 'react';
 import { CollapseWrapper } from '../../attributes/CollapseWrapper';
 import { Collapse } from '@arco-design/web-react';
 
-export function PostCard() {
+export function News() {
   const { focusIdx } = useFocusIdx();
   const { onUploadImage } = useEditorProps();
 
   return (
-    // TODO: CP-25658: Integrate feilds
     <AttributesPanelWrapper style={{ padding: '20px' }}>
-      <CollapseWrapper defaultActiveKey={['0']}>
+      <CollapseWrapper defaultActiveKey={['0', '1']}>
         <Collapse.Item
           name='0'
           header='Properties'
@@ -29,8 +33,8 @@ export function PostCard() {
             alignment='center'
           />
           <TextField
-            label='Posts Link'
-            name={`${focusIdx}.data.value.postLink`}
+            label='News Link'
+            name={`${focusIdx}.data.value.newsLink`}
             inline
             alignment='center'
           />
@@ -45,18 +49,6 @@ export function PostCard() {
             labelHidden={false}
             inline
             name={`${focusIdx}.data.value.image`}
-            uploadHandler={onUploadImage}
-          />
-        </Collapse.Item>
-        <Collapse.Item
-          name='2'
-          header='Attachement'
-        >
-          <ImageUploaderField
-            label='Attachement'
-            labelHidden={false}
-            inline
-            name={`${focusIdx}.data.value.attachmentUrl`}
             uploadHandler={onUploadImage}
           />
         </Collapse.Item>

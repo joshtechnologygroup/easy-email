@@ -17,7 +17,7 @@ export type INews = IBlockData<
     title: string;
     description: string;
     newsLink: string;
-    img: string;
+    image: string;
   }
 >;
 
@@ -28,12 +28,14 @@ export const News = createBlock<INews>({
     const defaultData: INews = {
       type: BasicType.NEWS,
       data: {
+        // TODO: CP-25658: Update default data
         value: {
           title: 'Title',
           description:
             'Recusandae illum alias. Suscipit illo nulla nostrum explicabo pariatur a qui tenetur culpa. Repellendus',
           newsLink: '#',
-          img: 'http://res.cloudinary.com/dwkp0e1yo/image/upload/v1681283275/xq0ybcd1j77zfxeoz9up.png',
+          image:
+            'http://res.cloudinary.com/dwkp0e1yo/image/upload/v1681283275/xq0ybcd1j77zfxeoz9up.png',
         },
       },
       attributes: {},
@@ -54,8 +56,7 @@ export const News = createBlock<INews>({
       title: data.value.title,
       description: truncatedDescription,
       link: data.value.newsLink,
-      image: '',
-      ...(data.value.img ? { image: data.value.img } : {}),
+      ...(data.value.image ? { image: data.value.image } : {}),
       class: mode === 'testing' && idx ? getPreviewClassName(idx, type) : '',
     };
 

@@ -9,11 +9,12 @@ export function ThankyouCard() {
   const { onUploadImage } = useEditorProps();
 
   return (
+    // TODO: CP-25658: Integrate feilds
     <AttributesPanelWrapper style={{ padding: '20px' }}>
       <CollapseWrapper defaultActiveKey={['0', '1']}>
         <Collapse.Item
           name='0'
-          header='Properties'
+          header='Thank you note'
         >
           <TextField
             label='Title'
@@ -22,7 +23,7 @@ export function ThankyouCard() {
             alignment='center'
           />
           <TextField
-            label='Title'
+            label='Description'
             name={`${focusIdx}.data.value.description`}
             inline
             alignment='center'
@@ -31,16 +32,16 @@ export function ThankyouCard() {
 
         <Collapse.Item
           name='0'
-          header='Properties'
+          header='User details'
         >
           <TextField
-            label='Title'
+            label='Name'
             name={`${focusIdx}.data.value.name`}
             inline
             alignment='center'
           />
           <TextField
-            label='Title'
+            label='Designation'
             name={`${focusIdx}.data.value.designation`}
             inline
             alignment='center'
@@ -48,13 +49,25 @@ export function ThankyouCard() {
         </Collapse.Item>
         <Collapse.Item
           name='1'
-          header='Image'
+          header='User Image'
         >
           <ImageUploaderField
             label='Attachement'
             labelHidden={false}
             inline
             name={`${focusIdx}.data.value.image`}
+            uploadHandler={onUploadImage}
+          />
+        </Collapse.Item>
+        <Collapse.Item
+          name='2'
+          header='Signature'
+        >
+          <ImageUploaderField
+            label='Attachement'
+            labelHidden={false}
+            inline
+            name={`${focusIdx}.data.value.signatureImage`}
             uploadHandler={onUploadImage}
           />
         </Collapse.Item>

@@ -10,17 +10,23 @@ export const MJML = `
               {{description}}
               <a href="{{link}}" style="color:#0A71D1">...more</a>
           </mj-text>
-          <mj-spacer height="10px"></mj-spacer>
-          <mj-image src="https://images.pexels.com/photos/1766838/pexels-photo-1766838.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1)" border-radius="4px" height="120px"></mj-image>
-          <mj-spacer height="10px"></mj-spacer>
+          <mj-spacer height="12px"></mj-spacer>
+          <mj-hero
+            mode="fixed-height"
+            height="120px"
+            background-color="#E9E9E9"
+            background-url="{{image}}"
+            border-radius="4px"
+          ></mj-hero >
+          <mj-spacer height="16px"></mj-spacer>
           <mj-social align="left" icon-size="20px" text-padding="5px" padding="5px" container-background-color="#F9F9F9" border-radius="4px">
-              <mj-social-element src="https://i.ibb.co/6X1rfVF/Vector-2.png" font-size="12px" font-weight="500" color="#000000" line-height="16px" >
+              <mj-social-element src="{{attachmentImage}}" font-size="12px" font-weight="500" color="#000000" line-height="16px" >
                 PDF Attachment-1.pdf
               </mj-social-element>
           </mj-social>
-          <mj-spacer height="10px"></mj-spacer>
+          <mj-spacer height="16px"></mj-spacer>
           <mj-social align="left" icon-size="16px" text-padding="0 0 0 5px">
-              <mj-social-element src="https://i.ibb.co/ByHQbCD/bx-comment.png" font-size="14px" font-weight="400" color="#0A71D1" line-height="16px" >
+              <mj-social-element src="https://i.ibb.co/ByHQbCD/bx-comment.png" font-size="14px" font-weight="400" color="#0A71D1" line-height="16px" href={{link}}>
                   Be the first one to talk about <span>&gt;</span>
               </mj-social-element>
           </mj-social>

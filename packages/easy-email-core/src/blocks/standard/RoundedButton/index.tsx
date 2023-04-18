@@ -26,8 +26,9 @@ export const RoundedButton = createBlock<IRoundedButton>({
     const defaultData: IRoundedButton = {
       type: BasicType.ROUNDED_BUTTON,
       data: {
+        // TODO: CP-25658: Update default data, and button padding to be fixed [part of phase 1]
         value: {
-          text: 'Latest News',
+          text: 'Button text',
           link: '#',
         },
       },

@@ -18,7 +18,8 @@ export type IThankyouCard = IBlockData<
     description: string;
     name: string;
     designation: string;
-    img: string;
+    image: string;
+    signatureImage: string;
   }
 >;
 
@@ -29,13 +30,14 @@ export const ThankyouCard = createBlock<IThankyouCard>({
     const defaultData: IThankyouCard = {
       type: BasicType.THANKYOU_CARD,
       data: {
+        // TODO: CP-25658: Update default data
         value: {
           title: 'Title',
-          description:
-            'Recusandae illum alias. Suscipit illo nulla nostrum explicabo pariatur a qui tenetur culpa. Repellendus',
-          name: 'DR. P.N.',
-          designation: 'Chairman',
-          img: '#',
+          description: 'Description',
+          name: 'Name',
+          designation: 'Designation',
+          image: '#',
+          signatureImage: '#',
         },
       },
       attributes: {},
@@ -50,15 +52,14 @@ export const ThankyouCard = createBlock<IThankyouCard>({
       mode,
       idx,
     } = params;
-    const truncatedDescription = data.value.description.substring(0, 180);
 
     const mjmlData = {
       title: data.value.title,
-      description: truncatedDescription,
+      description: data.value.description,
       name: data.value.name,
       designation: data.value.designation,
-      image: '',
-      ...(data.value.img ? { image: data.value.img } : {}),
+      ...(data.value.image ? { image: data.value.image } : {}),
+      ...(data.value.signatureImage ? { signatureImage: data.value.signatureImage } : {}),
       class: mode === 'testing' && idx ? getPreviewClassName(idx, type) : '',
     };
 
