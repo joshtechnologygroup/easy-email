@@ -39,7 +39,7 @@ export const CustomText = createBlock<ICustomText>({
       type: BasicType.CUSTOM_TEXT,
       data: {
         value: {
-          content: '{{text}}',
+          content: 'Type Something...',
         },
       },
       attributes: {
@@ -50,7 +50,7 @@ export const CustomText = createBlock<ICustomText>({
     };
     return merge(defaultData, payload);
   },
-  validParentType: [BasicType.PAGE],
+  validParentType: [BasicType.COLUMN],
   render: ({ mode, data, idx }) => {
     return (
       <Text

@@ -72,9 +72,21 @@ export function useBlock() {
         );
         if (autoCompletePaths) {
           autoCompletePaths.forEach((item) => {
-            child = createBlockDataByType(item, {
+            const payload = {
               children: [child],
-            });
+              attributes: {},
+            }
+            if (item == 'column') {
+              payload.attributes = {
+                'background-color': '#FFFFFF',
+                'css-class': 'container'
+              }
+            } else if (item == 'section') {
+              payload.attributes = {
+                'background-color': '#F6F6F6',
+              }
+            }
+            child = createBlockDataByType(item, payload);
             nextFocusIdx += '.children.[0]';
           });
         }

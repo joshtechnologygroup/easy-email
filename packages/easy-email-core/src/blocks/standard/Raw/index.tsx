@@ -27,6 +27,7 @@ export const Raw = createBlock<IRaw>({
   },
   validParentType: [
     BasicType.PAGE,
+    BasicType.POD_CUSTOM_PAGE,
     BasicType.WRAPPER,
     BasicType.SECTION,
     BasicType.GROUP,
