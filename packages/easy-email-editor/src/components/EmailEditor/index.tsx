@@ -18,7 +18,7 @@ import { EventManager, EventType } from '@/utils/EventManager';
 (window as any).global = window; // react-codemirror
 
 export const EmailEditor = () => {
-  const { height: containerHeight, hideEditMode, headerNode } = useEditorProps();
+  const { height: containerHeight, hideEditMode, hideUndoRedo, headerNode } = useEditorProps();
   const { setActiveTab, activeTab } = useActiveTab();
 
   const fixedContainer = useMemo(() => {
@@ -95,7 +95,7 @@ export const EmailEditor = () => {
           onChange={onChangeTab}
           style={{ height: '100%', width: '100%' }}
           tabBarMiddleContent={headerNode}
-          tabBarExtraContent={hideEditMode ? <div style={{ visibility: 'hidden' }}><ToolsPanel /></div> : <ToolsPanel />}
+          tabBarExtraContent={(hideEditMode || hideUndoRedo) ? <div style={{ visibility: 'hidden' }}><ToolsPanel /></div> : <ToolsPanel />}
         >
           {tabPanelList}
         </Tabs>
@@ -103,6 +103,6 @@ export const EmailEditor = () => {
         {fixedContainer}
       </div>
     ),
-    [activeTab, containerHeight, fixedContainer, onBeforeChangeTab, onChangeTab, tabPanelList, hideEditMode, headerNode]
+    [activeTab, containerHeight, fixedContainer, onBeforeChangeTab, onChangeTab, tabPanelList, hideEditMode, hideUndoRedo, headerNode]
   );
 };
