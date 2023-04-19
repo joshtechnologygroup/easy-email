@@ -49,6 +49,7 @@ export interface PropsProviderProps {
     enabledLogic?: boolean;
     locale?: Record<string, string>;
     hideEditMode?: boolean;
+    hideUndoRedo?: boolean;
     headerNode?: React.ReactNode;
 }
 export declare const EditorPropsContext: React.Context<PropsProviderProps & {

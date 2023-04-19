@@ -8348,7 +8348,7 @@ var index = "";
 var iconfont = "";
 window.global = window;
 const EmailEditor = () => {
-  const { height: containerHeight, hideEditMode, headerNode } = useEditorProps();
+  const { height: containerHeight, hideEditMode, hideUndoRedo, headerNode } = useEditorProps();
   const { setActiveTab, activeTab } = useActiveTab();
   const fixedContainer = useMemo(() => {
     return createPortal(/* @__PURE__ */ React.createElement("div", {
@@ -8413,10 +8413,10 @@ const EmailEditor = () => {
     onChange: onChangeTab,
     style: { height: "100%", width: "100%" },
     tabBarMiddleContent: headerNode,
-    tabBarExtraContent: hideEditMode ? /* @__PURE__ */ React.createElement("div", {
+    tabBarExtraContent: hideEditMode || hideUndoRedo ? /* @__PURE__ */ React.createElement("div", {
       style: { visibility: "hidden" }
     }, /* @__PURE__ */ React.createElement(ToolsPanel, null)) : /* @__PURE__ */ React.createElement(ToolsPanel, null)
-  }, tabPanelList), fixedContainer), [activeTab, containerHeight, fixedContainer, onBeforeChangeTab, onChangeTab, tabPanelList, hideEditMode, headerNode]);
+  }, tabPanelList), fixedContainer), [activeTab, containerHeight, fixedContainer, onBeforeChangeTab, onChangeTab, tabPanelList, hideEditMode, hideUndoRedo, headerNode]);
 };
 function useFocusBlockLayout() {
   return useContext(FocusBlockLayoutContext);
