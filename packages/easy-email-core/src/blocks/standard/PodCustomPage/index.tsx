@@ -21,4 +21,4 @@ export const PodCustomPage = createBlock({
     const { data } = params;
     throw Error('Not Implemented');
   },
-});;;
+});

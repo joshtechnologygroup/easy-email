@@ -78,12 +78,11 @@ export function useBlock() {
             }
             if (item == 'column') {
               payload.attributes = {
-                'background-color': '#FFFFFF',
-                'css-class': 'container'
+                'css-class': 'container white-bg'
               }
             } else if (item == 'section') {
               payload.attributes = {
-                'background-color': '#F6F6F6',
+                'css-class': 'body-bg',
               }
             }
             child = createBlockDataByType(item, payload);
