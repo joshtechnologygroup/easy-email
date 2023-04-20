@@ -28,6 +28,7 @@ export interface ImageUploaderProps {
   label: string;
   uploadHandler?: UploaderServer;
   autoCompleteOptions?: Array<{ value: string; label: React.ReactNode; }>;
+  showInputField?: boolean;
 }
 
 export function ImageUploader(props: ImageUploaderProps) {
@@ -145,48 +146,50 @@ export function ImageUploader(props: ImageUploaderProps) {
     <div className={styles.wrap}>
       <div className={styles['container']}>
         {content}
-        <Grid.Row style={{ width: '100%' }}>
-          {mergeTags && (
-            <Popover
-              trigger='click'
-              content={<MergeTags value={props.value} onChange={onChange} />}
-            >
-              <ArcoButton icon={<IconFont iconName='icon-merge-tags' />} />
-            </Popover>
-          )}
-          <Input
-            style={{ flex: 1 }}
-            onPaste={onPaste}
-            value={props.value}
-            onChange={onChange}
-            disabled={isUploading}
+        { props.showInputField && (
+          <Grid.Row style={{ width: '100%' }}>
+            {mergeTags && (
+              <Popover
+                trigger='click'
+                content={<MergeTags value={props.value} onChange={onChange} />}
+              >
+                <ArcoButton icon={<IconFont iconName='icon-merge-tags' />} />
+              </Popover>
+            )}
+            <Input
+              style={{ flex: 1 }}
+              onPaste={onPaste}
+              value={props.value}
+              onChange={onChange}
+              disabled={isUploading}
 
-          />
-          {props.autoCompleteOptions && (
-            <Dropdown
-              position="tr"
-              droplist={(
-                <Menu onClickMenuItem={(indexStr) => {
-                  if (!props.autoCompleteOptions) return;
-                  onChange(props.autoCompleteOptions[+indexStr]?.value);
-                }}
-                >
-                  {
-                    props.autoCompleteOptions.map((item, index) => {
-                      return (
-                        <Menu.Item style={{ display: 'flex', alignItems: 'center' }} key={index.toString()}>
-                          <img src={item.value} style={{ width: 20, height: 20 }} />&emsp;<span>{item.label}</span>
-                        </Menu.Item>
-                      );
-                    })
-                  }
-                </Menu>
-              )}
-            >
-              <ArcoButton icon={<IconAt />} />
-            </Dropdown>
-          )}
-        </Grid.Row>
+            />
+            {props.autoCompleteOptions && (
+              <Dropdown
+                position="tr"
+                droplist={(
+                  <Menu onClickMenuItem={(indexStr) => {
+                    if (!props.autoCompleteOptions) return;
+                    onChange(props.autoCompleteOptions[+indexStr]?.value);
+                  }}
+                  >
+                    {
+                      props.autoCompleteOptions.map((item, index) => {
+                        return (
+                          <Menu.Item style={{ display: 'flex', alignItems: 'center' }} key={index.toString()}>
+                            <img src={item.value} style={{ width: 20, height: 20 }} />&emsp;<span>{item.label}</span>
+                          </Menu.Item>
+                        );
+                      })
+                    }
+                  </Menu>
+                )}
+              >
+                <ArcoButton icon={<IconAt />} />
+              </Dropdown>
+            )}
+          </Grid.Row>
+        )}
       </div>
       <Modal visible={preview} footer={null} onCancel={() => setPreview(false)}>
         <img alt='Preview' style={{ width: '100%' }} src={props.value} />
