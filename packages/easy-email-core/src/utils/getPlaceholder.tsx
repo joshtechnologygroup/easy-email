@@ -7,7 +7,7 @@ export function getPlaceholder(params: Parameters<IBlock['render']>[0]) {
   if (mode === 'production') return null;
 
   let text: null | string = null;
-  if (type === BasicType.PAGE) {
+  if (type === BasicType.PAGE || type === BasicType.POD_CUSTOM_PAGE) {
     text = 'Drop a Wrapper block here';
   } else if (type === BasicType.WRAPPER || type === AdvancedType.WRAPPER) {
     text = 'Drop a Section block here';

@@ -22,6 +22,8 @@ import { AccordionText, IAccordionText } from './AccordionText';
 import { Table, ITable } from './Table';
 import { BasicType } from '@core/constants';
 import { CustomText, ICustomText } from './CustomText';
+import { EmptyPage } from './EmptyPage';
+import { PodCustomPage } from './PodCustomPage';
 
 export const standardBlocks = {
   [BasicType.PAGE]: Page,
@@ -52,6 +54,8 @@ export const standardBlocks = {
 
   [BasicType.TABLE]: Table,
   [BasicType.CUSTOM_TEXT]: CustomText,
+  [BasicType.EMPTY_PAGE]: EmptyPage,
+  [BasicType.POD_CUSTOM_PAGE]: PodCustomPage,
 };
 
 export type {

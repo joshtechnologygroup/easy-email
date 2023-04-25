@@ -49,6 +49,8 @@ var BasicType;
   BasicType2["TABLE"] = "table";
   BasicType2["TEMPLATE"] = "template";
   BasicType2["CUSTOM_TEXT"] = "custom-text";
+  BasicType2["EMPTY_PAGE"] = "empty-page";
+  BasicType2["POD_CUSTOM_PAGE"] = "pod-custom-page";
 })(BasicType || (BasicType = {}));
 var AdvancedType;
 (function(AdvancedType2) {
@@ -112,7 +114,7 @@ function getPlaceholder(params) {
   if (mode === "production")
     return null;
   let text = null;
-  if (type === BasicType.PAGE) {
+  if (type === BasicType.PAGE || type === BasicType.POD_CUSTOM_PAGE) {
     text = "Drop a Wrapper block here";
   } else if (type === BasicType.WRAPPER || type === AdvancedType.WRAPPER) {
     text = "Drop a Section block here";
@@ -4140,7 +4142,7 @@ const Wrapper$1 = createBlock({
     };
     return merge(defaultData, payload);
   },
-  validParentType: [BasicType.PAGE],
+  validParentType: [BasicType.PAGE, BasicType.POD_CUSTOM_PAGE],
   render(params) {
     return /* @__PURE__ */ React.createElement(BasicBlock, {
       params,
@@ -4271,7 +4273,7 @@ const Section$1 = createBlock({
     };
     return merge(defaultData, payload);
   },
-  validParentType: [BasicType.PAGE, BasicType.WRAPPER],
+  validParentType: [BasicType.PAGE, BasicType.POD_CUSTOM_PAGE, BasicType.WRAPPER],
   render(params) {
     return /* @__PURE__ */ React.createElement(BasicBlock, {
       params,
@@ -4603,7 +4605,7 @@ const Hero$1 = createBlock({
     };
     return mergeBlock(defaultData, payload);
   },
-  validParentType: [BasicType.PAGE, BasicType.WRAPPER],
+  validParentType: [BasicType.PAGE, BasicType.POD_CUSTOM_PAGE, BasicType.WRAPPER],
   render(params) {
     return /* @__PURE__ */ React.createElement(BasicBlock, {
       params,
@@ -7969,6 +7971,7 @@ const Raw$1 = createBlock({
   },
   validParentType: [
     BasicType.PAGE,
+    BasicType.POD_CUSTOM_PAGE,
     BasicType.WRAPPER,
     BasicType.SECTION,
     BasicType.GROUP,
@@ -8242,7 +8245,7 @@ const CustomText = createBlock({
       type: BasicType.CUSTOM_TEXT,
       data: {
         value: {
-          content: "{{text}}"
+          content: "Type Something..."
         }
       },
       attributes: {
@@ -8253,11 +8256,54 @@ const CustomText = createBlock({
     };
     return merge(defaultData, payload);
   },
-  validParentType: [BasicType.PAGE],
+  validParentType: [BasicType.COLUMN],
   render: ({ mode, data, idx }) => {
     return /* @__PURE__ */ React.createElement(Text, __spreadValues({
       "css-class": mode == "testing" ? getPreviewClassName(idx || null, data.type) : ""
     }, data.attributes), data.data.value.content);
+  }
+});
+const EmptyPage = createBlock({
+  name: "Empty Page",
+  type: BasicType.EMPTY_PAGE,
+  create: (payload) => {
+    const defaultData = {
+      type: BasicType.EMPTY_PAGE,
+      data: {
+        value: {}
+      },
+      attributes: {},
+      children: []
+    };
+    return merge(defaultData, payload);
+  },
+  validParentType: [],
+  render(params) {
+    const { data } = params;
+    return /* @__PURE__ */ React.createElement(React.Fragment, null, data.children.map((child, index2) => /* @__PURE__ */ React.createElement(BlockRenderer, __spreadProps(__spreadValues({}, params), {
+      idx: getChildIdx(getPageIdx(), index2),
+      key: index2,
+      data: child
+    }))));
+  }
+});
+const PodCustomPage = createBlock({
+  name: "Newsletter Page",
+  type: BasicType.POD_CUSTOM_PAGE,
+  create: (payload) => {
+    const defaultData = {
+      type: BasicType.POD_CUSTOM_PAGE,
+      data: {
+        value: {}
+      },
+      attributes: {},
+      children: []
+    };
+    return merge(defaultData, payload);
+  },
+  validParentType: [],
+  render(params) {
+    throw Error("Not Implemented");
   }
 });
 const standardBlocks = {
@@ -8282,7 +8328,9 @@ const standardBlocks = {
   [BasicType.ACCORDION_TITLE]: AccordionTitle$1,
   [BasicType.ACCORDION_TEXT]: AccordionText$1,
   [BasicType.TABLE]: Table$1,
-  [BasicType.CUSTOM_TEXT]: CustomText
+  [BasicType.CUSTOM_TEXT]: CustomText,
+  [BasicType.EMPTY_PAGE]: EmptyPage,
+  [BasicType.POD_CUSTOM_PAGE]: PodCustomPage
 };
 const createCustomBlock = createBlock;
 function generateAdvancedBlock(option) {
@@ -8505,6 +8553,7 @@ var index = /* @__PURE__ */ Object.freeze({
   Social,
   Table,
   Template,
+  BlockRenderer,
   MjmlBlock
 });
 function classnames(...rest) {
@@ -8618,6 +8667,7 @@ function generateAdvancedContentBlock(option) {
   return generateAdvancedBlock(__spreadProps(__spreadValues({}, option), {
     validParentType: [
       BasicType.PAGE,
+      BasicType.POD_CUSTOM_PAGE,
       BasicType.WRAPPER,
       BasicType.COLUMN,
       BasicType.GROUP,
@@ -8645,7 +8695,7 @@ function generateAdvancedContentBlock(option) {
       if (!parentBlockData) {
         return children;
       }
-      if (parentBlockData.type === BasicType.PAGE || parentBlockData.type === BasicType.WRAPPER || parentBlockData.type === AdvancedType.WRAPPER) {
+      if (parentBlockData.type === BasicType.PAGE || parentBlockData.type === BasicType.POD_CUSTOM_PAGE || parentBlockData.type === BasicType.WRAPPER || parentBlockData.type === AdvancedType.WRAPPER) {
         return /* @__PURE__ */ React.createElement(Section, {
           padding: "0px",
           "text-align": "left"
@@ -8979,7 +9029,6 @@ function MjmlToJson(data) {
         }
         const blockData = block2.create(payload);
         formatPadding(blockData.attributes, "padding");
-        formatPadding(blockData.attributes, "inner-padding");
         return blockData;
     }
   };

@@ -34078,7 +34078,7 @@ function ImageUploader(props) {
     className: styles$8.wrap
   }, /* @__PURE__ */ React__default.createElement("div", {
     className: styles$8["container"]
-  }, content, /* @__PURE__ */ React__default.createElement(Grid.Row, {
+  }, content, props.showInputField && /* @__PURE__ */ React__default.createElement(Grid.Row, {
     style: { width: "100%" }
   }, mergeTags2 && /* @__PURE__ */ React__default.createElement(Popover$1, {
     trigger: "click",
@@ -40477,7 +40477,7 @@ function BlockLayer(props) {
     }
   }, [setValueByIdx2, valueRef]);
   const renderTitle = useCallback((data) => {
-    const isPage = data.type === BasicType.PAGE;
+    const isPage = data.type === BasicType.PAGE || data.type === BasicType.POD_CUSTOM_PAGE;
     const title2 = propsRenderTitle ? propsRenderTitle(data) : getBlockTitle(data);
     return /* @__PURE__ */ React__default.createElement("div", {
       "data-tree-idx": data.id,

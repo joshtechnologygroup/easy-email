@@ -113,7 +113,7 @@ export const Hero = createBlock<IHero>({
     };
     return mergeBlock(defaultData, payload);
   },
-  validParentType: [BasicType.PAGE, BasicType.WRAPPER],
+  validParentType: [BasicType.PAGE, BasicType.POD_CUSTOM_PAGE, BasicType.WRAPPER],
   render(params) {
     return <BasicBlock params={params} tag="mj-hero" />;
   },
