@@ -9,7 +9,6 @@ export function PostCard() {
   const { onUploadImage } = useEditorProps();
 
   return (
-    // TODO: CP-25658: Integrate feilds
     <AttributesPanelWrapper style={{ padding: '20px' }}>
       <CollapseWrapper defaultActiveKey={['0']}>
         <Collapse.Item

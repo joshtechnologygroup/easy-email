@@ -94,6 +94,9 @@ const defaultCategories: ExtensionProps['categories'] = [
         type: BasicType.HEADING,
       },
       {
+        type: BasicType.NEWS,
+      },
+      {
         type: BasicType.ROUNDED_BUTTON,
       },
       {
