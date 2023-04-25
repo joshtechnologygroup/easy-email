@@ -45,7 +45,7 @@ export const ThankyouCard = createBlock<IThankyouCard>({
     };
     return merge(defaultData, payload);
   },
-  validParentType: [BasicType.WRAPPER, AdvancedType.WRAPPER, BasicType.NEWSLETTER_PAGE],
+  validParentType: [BasicType.WRAPPER, AdvancedType.WRAPPER, BasicType.POD_CUSTOM_PAGE],
   render(params) {
     const {
       data: { data, type },
