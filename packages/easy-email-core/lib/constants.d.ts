@@ -21,7 +21,9 @@ export declare enum BasicType {
     SOCIAL = "social",
     TABLE = "table",
     TEMPLATE = "template",
-    CUSTOM_TEXT = "custom-text"
+    CUSTOM_TEXT = "custom-text",
+    EMPTY_PAGE = "empty-page",
+    POD_CUSTOM_PAGE = "pod-custom-page"
 }
 export declare enum AdvancedType {
     TEXT = "advanced_text",

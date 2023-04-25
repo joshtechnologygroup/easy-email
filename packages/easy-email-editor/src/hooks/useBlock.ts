@@ -76,6 +76,9 @@ export function useBlock() {
               children: [child],
               attributes: {},
             }
+            // When a block is drag and dropped to an invalid parent type, editor adds blocks to
+            // complete mjml hierarchy. Adding css classes to these blocks so they match with other
+            // components in template
             if (item == 'column') {
               payload.attributes = {
                 'css-class': 'container white-bg'
