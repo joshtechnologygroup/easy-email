@@ -29,6 +29,7 @@ import { Heading, IHeading } from './Heading';
 import { PostCard, IPostCard } from './PostCard';
 import { ThankyouCard, IThankyouCard } from './ThankyouCard';
 import { RoundedButton, IRoundedButton } from './RoundedButton';
+import { QuoteCard } from './Quote';
 
 export const standardBlocks = {
   [BasicType.PAGE]: Page,
@@ -66,6 +67,7 @@ export const standardBlocks = {
   [BasicType.POST_CARD]: PostCard,
   [BasicType.ROUNDED_BUTTON]: RoundedButton,
   [BasicType.THANKYOU_CARD]: ThankyouCard,
+  [BasicType.QUOTE_CARD]: QuoteCard,
 };
 
 export type {

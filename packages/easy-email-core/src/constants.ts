@@ -33,6 +33,7 @@ export enum BasicType {
   ROUNDED_BUTTON = 'rounded-button',
   POST_CARD = 'post-card',
   THANKYOU_CARD = 'thankyou-card',
+  QUOTE_CARD = 'quote',
 }
 
 // 高级组件

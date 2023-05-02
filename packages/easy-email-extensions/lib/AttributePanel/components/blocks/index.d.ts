@@ -18,6 +18,11 @@ import { Hero } from './Hero';
 import { Navbar } from './Navbar';
 import { Social } from './Social';
 import { Table } from './Table';
+import { Heading } from './Heading';
+import { RoundedButton } from './RoundedButton';
+import { PostCard } from './PostCard';
+import { ThankyouCard } from './ThankyouCard';
+import { News } from './News';
 export declare const blocks: {
     page: typeof Page;
     section: typeof Section;
@@ -53,4 +58,9 @@ export declare const blocks: {
     advanced_section: typeof Section;
     advanced_group: typeof Group;
     advanced_column: typeof Column;
+    news: typeof News;
+    heading: typeof Heading;
+    "post-card": typeof PostCard;
+    "thankyou-card": typeof ThankyouCard;
+    "rounded-button": typeof RoundedButton;
 };

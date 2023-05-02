@@ -20,6 +20,11 @@ import { IAccordionTitle } from './AccordionTitle';
 import { IAccordionText } from './AccordionText';
 import { ITable } from './Table';
 import { ICustomText } from './CustomText';
+import { INews } from './News';
+import { IHeading } from './Heading';
+import { IPostCard } from './PostCard';
+import { IThankyouCard } from './ThankyouCard';
+import { IRoundedButton } from './RoundedButton';
 export declare const standardBlocks: {
     page: import("../..").IBlock<IPage>;
     section: import("../..").IBlock<ISection>;
@@ -45,5 +50,11 @@ export declare const standardBlocks: {
     "custom-text": import("../..").IBlock<ICustomText>;
     "empty-page": import("../..").IBlock<import("../..").IBlockData<any, any>>;
     "pod-custom-page": import("../..").IBlock<import("../..").IBlockData<any, any>>;
+    news: import("../..").IBlock<INews>;
+    heading: import("../..").IBlock<IHeading>;
+    "post-card": import("../..").IBlock<IPostCard>;
+    "rounded-button": import("../..").IBlock<IRoundedButton>;
+    "thankyou-card": import("../..").IBlock<IThankyouCard>;
+    quote: import("../..").IBlock<import("./Quote").IQuoteCard>;
 };
-export type { IPage, ISection, IWrapper, IColumn, IGroup, IText, ITable, IImage, IButton, IDivider, ISpacer, ICarousel, IHero, ISocial, INavbar, IRaw, IAccordion, IAccordionElement, IAccordionTitle, IAccordionText, ITemplate, ICustomText, };
+export type { IPage, ISection, IWrapper, IColumn, IGroup, IText, ITable, IImage, IButton, IDivider, ISpacer, ICarousel, IHero, ISocial, INavbar, IRaw, IAccordion, IAccordionElement, IAccordionTitle, IAccordionText, ITemplate, ICustomText, INews, IHeading, IPostCard, IRoundedButton, IThankyouCard, };

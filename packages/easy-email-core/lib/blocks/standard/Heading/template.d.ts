@@ -1,0 +1,1 @@
+export declare const MJML = "\n  <mj-section padding=\"0px 16px\" background-color=\"#F6F6F6\"  css-class=\"{{class}}\">\n    <mj-column css-class=\"container\">\n      <mj-text align=\"left\" font-size=\"32px\" line-height=\"42px\" font-weight=\"700\" color=\"#102825\">{{heading}}</mj-text>\n    </mj-column>\n  </mj-section>\n";

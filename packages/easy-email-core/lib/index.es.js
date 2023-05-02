@@ -51,6 +51,12 @@ var BasicType;
   BasicType2["CUSTOM_TEXT"] = "custom-text";
   BasicType2["EMPTY_PAGE"] = "empty-page";
   BasicType2["POD_CUSTOM_PAGE"] = "pod-custom-page";
+  BasicType2["NEWS"] = "news";
+  BasicType2["HEADING"] = "heading";
+  BasicType2["ROUNDED_BUTTON"] = "rounded-button";
+  BasicType2["POST_CARD"] = "post-card";
+  BasicType2["THANKYOU_CARD"] = "thankyou-card";
+  BasicType2["QUOTE_CARD"] = "quote";
 })(BasicType || (BasicType = {}));
 var AdvancedType;
 (function(AdvancedType2) {
@@ -7981,8 +7987,8 @@ const Raw$1 = createBlock({
   render(params) {
     let data = params.data.data.value.content;
     if (params.data.attributes.renderInEditor) {
-      const engine = new Liquid();
-      data = engine.parseAndRenderSync(data, params.dataSource);
+      const engine2 = new Liquid();
+      data = engine2.parseAndRenderSync(data, params.dataSource);
     }
     return /* @__PURE__ */ React.createElement(BasicBlock, {
       params,
@@ -8306,6 +8312,365 @@ const PodCustomPage = createBlock({
     throw Error("Not Implemented");
   }
 });
+const MJML$5 = `
+  <mj-section padding="0px 16px" background-color="#F6F6F6" css-class="{{class}}">
+    <mj-group css-class="container" background-color="#FFFFFF">
+      <mj-column width="70%" padding="16px">
+        <mj-text font-size="16px" line-height="24px" font-weight="700" color="#404040">{{title}}</mj-text>
+        <mj-text font-size="14px" line-height="20px" color="#666666" font-weight="400">{{description}}...
+          <a href="{{link}}" color="#0A71D1">more</a>
+        </mj-text>
+    </mj-column>
+    {% if image %}
+      <mj-column width="30%" padding="16px 16px 16px 0">
+          <mj-hero
+            mode="fixed-height"
+            height="80px"
+            background-color="#E9E9E9"
+            background-url="{{image}}"
+            border-radius="4px"
+          ></mj-hero >
+      </mj-column>
+    {% endif %}
+  </mj-group>
+</mj-section>
+`;
+const engine$5 = new Liquid();
+const News = createBlock({
+  name: "News",
+  type: BasicType.NEWS,
+  create: (payload) => {
+    const defaultData = {
+      type: BasicType.NEWS,
+      data: {
+        value: {
+          title: "Title",
+          description: "Recusandae illum alias. Suscipit illo nulla nostrum explicabo pariatur a qui tenetur culpa. Repellendus",
+          newsLink: "#",
+          image: "http://res.cloudinary.com/dwkp0e1yo/image/upload/v1681283275/xq0ybcd1j77zfxeoz9up.png"
+        }
+      },
+      attributes: {},
+      children: []
+    };
+    return merge(defaultData, payload);
+  },
+  validParentType: [BasicType.WRAPPER, AdvancedType.WRAPPER, BasicType.POD_CUSTOM_PAGE],
+  render(params) {
+    const {
+      data: { data, type },
+      mode,
+      idx
+    } = params;
+    const truncatedDescription = data.value.description.substring(0, 180);
+    const mjmlData = __spreadProps(__spreadValues({
+      title: data.value.title,
+      description: truncatedDescription,
+      link: data.value.newsLink
+    }, data.value.image ? { image: data.value.image } : {}), {
+      class: mode === "testing" && idx ? getPreviewClassName(idx, type) : ""
+    });
+    return engine$5.parseAndRenderSync(MJML$5, mjmlData);
+  }
+});
+const MJML$4 = `
+  <mj-section padding="0px 16px" background-color="#F6F6F6"  css-class="{{class}}">
+    <mj-column css-class="container">
+      <mj-text align="left" font-size="32px" line-height="42px" font-weight="700" color="#102825">{{heading}}</mj-text>
+    </mj-column>
+  </mj-section>
+`;
+const engine$4 = new Liquid();
+const Heading = createBlock({
+  name: "Heading",
+  type: BasicType.HEADING,
+  create: (payload) => {
+    const defaultData = {
+      type: BasicType.HEADING,
+      data: {
+        value: {
+          heading: "Type your heading.."
+        }
+      },
+      attributes: {},
+      children: []
+    };
+    return merge(defaultData, payload);
+  },
+  validParentType: [BasicType.WRAPPER, AdvancedType.WRAPPER, BasicType.POD_CUSTOM_PAGE],
+  render(params) {
+    const {
+      data: { data, type },
+      mode,
+      idx
+    } = params;
+    const mjmlData = {
+      heading: data.value.heading,
+      class: mode === "testing" && idx ? getPreviewClassName(idx, type) : ""
+    };
+    return engine$4.parseAndRenderSync(MJML$4, mjmlData);
+  }
+});
+const MJML$3 = `
+<mj-wrapper padding="0 16px" background-color="#F6F6F6" css-class="{{class}}" >
+    <mj-section padding="16px" css-class="container" background-color="#FFFFFF">
+        <mj-column width="100%">
+          <mj-text font-size="16px" font-weight="700" color="#4F4F4F" line-height="24px" >
+            {{title}}
+          </mj-text>
+          <mj-spacer height="5px"></mj-spacer>
+          <mj-text font-size="14px" font-weight="400" color="#828282" line-height="20px">
+              {{description}}
+              <a href="{{link}}" style="color:#0A71D1">...more</a>
+          </mj-text>
+          <mj-spacer height="12px"></mj-spacer>
+          <mj-hero
+            mode="fixed-height"
+            height="120px"
+            background-color="#E9E9E9"
+            background-url="{{image}}"
+            border-radius="4px"
+          ></mj-hero >
+        </mj-column>
+    </mj-section>
+</mj-wrapper>
+`;
+const engine$3 = new Liquid();
+const PostCard = createBlock({
+  name: "Post",
+  type: BasicType.POST_CARD,
+  create: (payload) => {
+    const defaultData = {
+      type: BasicType.POST_CARD,
+      data: {
+        value: {
+          title: "Title",
+          description: "Recusandae illum alias. Suscipit illo nulla nostrum explicabo pariatur a qui tenetur culpa. Repellendus",
+          postLink: "#",
+          image: "http://res.cloudinary.com/dwkp0e1yo/image/upload/v1681283275/xq0ybcd1j77zfxeoz9up.png"
+        }
+      },
+      attributes: {},
+      children: []
+    };
+    return merge(defaultData, payload);
+  },
+  validParentType: [BasicType.WRAPPER, AdvancedType.WRAPPER, BasicType.POD_CUSTOM_PAGE],
+  render(params) {
+    const {
+      data: { data, type },
+      mode,
+      idx
+    } = params;
+    const truncatedDescription = data.value.description.substring(0, 180);
+    const mjmlData = __spreadProps(__spreadValues({
+      title: data.value.title,
+      description: truncatedDescription,
+      link: data.value.postLink
+    }, data.value.image ? { image: data.value.image } : {}), {
+      class: mode === "testing" && idx ? getPreviewClassName(idx, type) : ""
+    });
+    return engine$3.parseAndRenderSync(MJML$3, mjmlData);
+  }
+});
+const MJML$2 = `
+<mj-wrapper padding="0 16px" background-color="#F6F6F6" css-class="{{class}}">
+    <mj-section border-radius="8px 8px 0 0" background-color="#FFFFFF" padding="16px 16px 0" css-class="container">
+        <mj-column>
+            <mj-text font-size="20px" font-weight="500" line-height="32px" color="#222222">{{title}}</mj-text>
+            <mj-spacer height="8px"></mj-spacer>
+            <mj-text font-size="14px" font-weight="400" line-height="20px" color="#404040">{{description}}</mj-text>
+            <mj-spacer height="20px"></mj-spacer>
+        </mj-column>
+    </mj-section>
+    <mj-section border-radius="0 0 8px 8px" background-color="#FFFFFF" padding="0 16px 16px" css-class="container">
+        <mj-group>
+            <mj-column width="70%">
+                <mj-social align="left" icon-size="42px" text-padding="0 0 0 12px">
+                    <mj-social-element src="{{image}}" vertical-align="top" border-radius="30px" >
+                        <p style=""margin: 0;font-size: 14px; line-height: 24px; font-weight: 500; color: #102825">
+                            {{name}}
+                        </p>
+                        <p style="margin: 0; font-size: 12px; line-height: 16px; font-weight: 400; color: #666666">
+                          {{designation}}
+                        </p>
+                    </mj-social-element>
+                </mj-social>
+            </mj-column>
+            <mj-column width="29.9%">
+              <mj-image padding-left="10px" src="{{signatureImage}}" width="84px" height="46px" align="right" />
+            </mj-column>
+        </mj-group>
+    </mj-section>
+</mj-wrapper>
+`;
+const engine$2 = new Liquid();
+const ThankyouCard = createBlock({
+  name: "Thank you card",
+  type: BasicType.THANKYOU_CARD,
+  create: (payload) => {
+    const defaultData = {
+      type: BasicType.THANKYOU_CARD,
+      data: {
+        value: {
+          title: "Title",
+          description: "Description",
+          name: "Name",
+          designation: "Designation",
+          image: "#",
+          signatureImage: "#"
+        }
+      },
+      attributes: {},
+      children: []
+    };
+    return merge(defaultData, payload);
+  },
+  validParentType: [BasicType.WRAPPER, AdvancedType.WRAPPER, BasicType.POD_CUSTOM_PAGE],
+  render(params) {
+    const {
+      data: { data, type },
+      mode,
+      idx
+    } = params;
+    const mjmlData = __spreadProps(__spreadValues(__spreadValues({
+      title: data.value.title,
+      description: data.value.description,
+      name: data.value.name,
+      designation: data.value.designation
+    }, data.value.image ? { image: data.value.image } : {}), data.value.signatureImage ? { signatureImage: data.value.signatureImage } : {}), {
+      class: mode === "testing" && idx ? getPreviewClassName(idx, type) : ""
+    });
+    return engine$2.parseAndRenderSync(MJML$2, mjmlData);
+  }
+});
+const MJML$1 = `
+  <mj-section background-color="#F6F6F6" css-class="{{class}}">
+    <mj-column css-class="container">
+      <mj-button background-color="#E9E9E9" css-class="btn-block" innner-padding="6px 12px" href="{{link}}" border-radius="20px">
+      <p style="display:inline-block;vertical-align:middle;margin: 0; color: #000000; font-size: 12px; font-weight: 400; line-height: 16px;">{{text}}</p>
+      <p style="display:inline-block; vertical-align:middle;width: 16px; height: 16px; margin: 0">
+        <img alt="right arrow" height="16" src="https://i.ibb.co/8g9pjDG/akar-icons-arrow-down-4.png" style="width: 100%; font-size: 0; line-height: 0; max-width: 16px; display: block;" width="16" />
+      </p>
+      </mj-button>
+    </mj-column>
+  </mj-section>
+`;
+const engine$1 = new Liquid();
+const RoundedButton = createBlock({
+  name: "Rounded Button",
+  type: BasicType.ROUNDED_BUTTON,
+  create: (payload) => {
+    const defaultData = {
+      type: BasicType.ROUNDED_BUTTON,
+      data: {
+        value: {
+          text: "Button text",
+          link: "#"
+        }
+      },
+      attributes: {
+        "inner-padding": "0px 0px 0px 0px",
+        padding: "0px 0px 0px 0px"
+      },
+      children: []
+    };
+    return merge(defaultData, payload);
+  },
+  validParentType: [BasicType.WRAPPER, AdvancedType.WRAPPER, BasicType.POD_CUSTOM_PAGE],
+  render(params) {
+    const {
+      data: { data, type },
+      mode,
+      idx
+    } = params;
+    const mjmlData = {
+      text: data.value.text,
+      link: data.value.link,
+      class: mode === "testing" && idx ? getPreviewClassName(idx, type) : ""
+    };
+    return engine$1.parseAndRenderSync(MJML$1, mjmlData);
+  }
+});
+var quoteImg = "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzMiIGhlaWdodD0iMjYiIHZpZXdCb3g9IjAgMCAzMyAyNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggb3BhY2l0eT0iMC44IiBkPSJNMjAuNTY2NiAwLjc1NDMwMUgzMi4xOTkyVjguODE0NDVDMzIuMTk5MiAxMi4wNzU5IDMxLjkwOTQgMTQuNjQyNCAzMS4zMjk5IDE2LjUxMzdDMzAuNzIyNyAxOC40MTE4IDI5LjYxODggMjAuMTA5NCAyOC4wMTgxIDIxLjYwNjRDMjYuNDE3NCAyMy4xMDM1IDI0LjM3NTIgMjQuMjc5OCAyMS44OTEzIDI1LjEzNTNMMTkuNjE0NSAyMC40ODM2QzIxLjkzMjcgMTkuNzM1MSAyMy42MDI0IDE4LjY5MjUgMjQuNjIzNSAxNy4zNTU4QzI1LjYxNzEgMTYuMDE5MSAyNi4xNDE0IDE0LjI0MTQgMjYuMTk2NiAxMi4wMjI1SDIwLjU2NjZWMC43NTQzMDFaTTEuMTUxMzUgMC43NTQzMDFIMTIuNzg0VjguODE0NDVDMTIuNzg0IDEyLjEwMjcgMTIuNDk0MiAxNC42ODI1IDExLjkxNDYgMTYuNTUzOEMxMS4zMDc1IDE4LjQyNTEgMTAuMjAzNSAyMC4xMDk0IDguNjAyODQgMjEuNjA2NEM2Ljk3NDU1IDIzLjEwMzUgNC45MzIyOSAyNC4yNzk4IDIuNDc2MDYgMjUuMTM1M0wwLjE5OTIxOSAyMC40ODM2QzIuNTE3NDYgMTkuNzM1MSA0LjE4NzE0IDE4LjY5MjUgNS4yMDgyNyAxNy4zNTU4QzYuMjAxODEgMTYuMDE5MSA2LjcyNjE3IDE0LjI0MTQgNi43ODEzNyAxMi4wMjI1SDEuMTUxMzVWMC43NTQzMDFaIiBmaWxsPSIjNTUyMkQwIi8+Cjwvc3ZnPgo=";
+var quoteInvertedImg = "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDkiIGhlaWdodD0iMzgiIHZpZXdCb3g9IjAgMCA0OSAzOCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggb3BhY2l0eT0iMC44IiBkPSJNMTcuNjQ4MSAzNy43NTQySDAuMTk5MjE5VjI1LjI3M0MwLjE5OTIxOSAyMC4yMjI1IDAuNjMzODg5IDE2LjI0ODQgMS41MDMyMyAxMy4zNTA2QzIuNDEzOTcgMTAuNDExNCA0LjA2OTg1IDcuNzgyNjcgNi40NzA4OSA1LjQ2NDQyQzguODcxOTIgMy4xNDYxOCAxMS45MzUzIDEuMzI0NzEgMTUuNjYxMSAwTDE5LjA3NjMgNy4yMDMxQzE1LjU5OSA4LjM2MjIzIDEzLjA5NDQgOS45NzY3MSAxMS41NjI3IDEyLjA0NjZDMTAuMDcyNCAxNC4xMTY0IDkuMjg1ODkgMTYuODY5MyA5LjIwMzEgMjAuMzA1M0gxNy42NDgxVjM3Ljc1NDJaTTQ2Ljc3MSAzNy43NTQySDI5LjMyMjFWMjUuMjczQzI5LjMyMjEgMjAuMTgxMSAyOS43NTY4IDE2LjE4NjMgMzAuNjI2MSAxMy4yODg1QzMxLjUzNjkgMTAuMzkwNyAzMy4xOTI3IDcuNzgyNjcgMzUuNTkzOCA1LjQ2NDQyQzM4LjAzNjIgMy4xNDYxOCA0MS4wOTk2IDEuMzI0NzEgNDQuNzg0IDBMNDguMTk5MiA3LjIwMzFDNDQuNzIxOSA4LjM2MjIzIDQyLjIxNzMgOS45NzY3MSA0MC42ODU2IDEyLjA0NjZDMzkuMTk1MyAxNC4xMTY0IDM4LjQwODggMTYuODY5MyAzOC4zMjYgMjAuMzA1M0g0Ni43NzFWMzcuNzU0MloiIGZpbGw9IiM1NTIyRDAiLz4KPC9zdmc+Cg==";
+const MJML = `
+<mj-wrapper background-color="#F6F6F6" css-class="{{class}}" >
+    <mj-section padding="16px" css-class="container" background-color="#FFFFFF">
+
+    <mj-group>
+    {% if image %}
+        <mj-column padding="20px" width="30%">
+            <mj-spacer height="40px" />
+            <mj-hero
+            mode="fixed-height"
+            height="180px"
+            background-color="#E9E9E9"
+            background-url="{{image}}"
+            border-radius="4px"
+            width="70px"
+          ></mj-hero>
+        </mj-column>
+    {% endif %}
+        <mj-column {% if image %}width="70%"{% endif %}>
+            <mj-image mj-class="src-blockquote-inverted" style="object-fit: cover;" src={{quoteImg1}} width="40px" height="35px" align="left" />
+            <mj-spacer height="8px" />
+            <mj-text padding="0px 25px" font-size="18px" font-weight="600">{{title}}</mj-text>
+            <mj-text padding="0px 25px" font-size="14px" font-weight="400" color="#828282">
+            {{designation}}
+        </mj-text>
+            <mj-text font-size="16px" mj-class="text--md text--grey">
+                {{description}}
+            </mj-text>
+            <mj-spacer height="10px" />
+            <mj-image mj-class="src-blockquote" width="36px" height="32px" src={{quoteImg2}} align="right" />
+        </mj-column>
+    </mj-group>
+    </mj-section>
+</mj-wrapper>
+`;
+const engine = new Liquid();
+const QuoteCard = createBlock({
+  name: "Quote",
+  type: BasicType.QUOTE_CARD,
+  create: (payload) => {
+    const defaultData = {
+      type: BasicType.QUOTE_CARD,
+      data: {
+        value: {
+          title: "Selva Mathew",
+          description: "The prodigious growth of digitisation has unequivocally contributed siginificantly to business success. Furthermore, the numerous benefits of the IIT bombay programme undeniably offer a guranteed carrer escalation! nce, strong and invincible programs becomes paramount. IIT Bombay Programe in your carrier provide yoiu with impeccable blend of theory.",
+          designation: "HOD, Department of Design",
+          image: "http://res.cloudinary.com/dwkp0e1yo/image/upload/v1681283275/xq0ybcd1j77zfxeoz9up.png",
+          quoteImg,
+          quoteInvertedImg
+        }
+      },
+      attributes: {},
+      children: []
+    };
+    return merge(defaultData, payload);
+  },
+  validParentType: [BasicType.WRAPPER, AdvancedType.WRAPPER, BasicType.POD_CUSTOM_PAGE],
+  render(params) {
+    const {
+      data: { data, type },
+      mode,
+      idx
+    } = params;
+    const truncatedDescription = data.value.description.substring(0, 180);
+    const mjmlData = __spreadProps(__spreadValues({
+      title: data.value.title,
+      description: truncatedDescription,
+      designation: data.value.designation,
+      quoteImg1: quoteImg,
+      quoteImg2: quoteInvertedImg
+    }, data.value.image ? { image: data.value.image } : {}), {
+      class: mode === "testing" && idx ? getPreviewClassName(idx, type) : ""
+    });
+    return engine.parseAndRenderSync(MJML, mjmlData);
+  }
+});
 const standardBlocks = {
   [BasicType.PAGE]: Page$1,
   [BasicType.SECTION]: Section$1,
@@ -8330,7 +8695,13 @@ const standardBlocks = {
   [BasicType.TABLE]: Table$1,
   [BasicType.CUSTOM_TEXT]: CustomText,
   [BasicType.EMPTY_PAGE]: EmptyPage,
-  [BasicType.POD_CUSTOM_PAGE]: PodCustomPage
+  [BasicType.POD_CUSTOM_PAGE]: PodCustomPage,
+  [BasicType.NEWS]: News,
+  [BasicType.HEADING]: Heading,
+  [BasicType.POST_CARD]: PostCard,
+  [BasicType.ROUNDED_BUTTON]: RoundedButton,
+  [BasicType.THANKYOU_CARD]: ThankyouCard,
+  [BasicType.QUOTE_CARD]: QuoteCard
 };
 const createCustomBlock = createBlock;
 function generateAdvancedBlock(option) {

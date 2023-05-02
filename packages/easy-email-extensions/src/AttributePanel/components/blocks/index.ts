@@ -25,6 +25,7 @@ import { RoundedButton } from './RoundedButton';
 import { PostCard } from './PostCard';
 import { ThankyouCard } from './ThankyouCard';
 import { News } from './News';
+import { QuoteCard } from './Quote';
 
 export const blocks = {
   [BasicType.PAGE]: Page,
@@ -68,4 +69,5 @@ export const blocks = {
   [BasicType.POST_CARD]: PostCard,
   [BasicType.THANKYOU_CARD]: ThankyouCard,
   [BasicType.ROUNDED_BUTTON]: RoundedButton,
+  [BasicType.QUOTE_CARD]: QuoteCard,
 };

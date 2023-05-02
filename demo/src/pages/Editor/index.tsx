@@ -111,6 +111,9 @@ const defaultCategories: ExtensionProps['categories'] = [
       {
         type: BasicType.DIVIDER,
       },
+      {
+        type: BasicType.QUOTE_CARD,
+      },
     ],
   },
   {

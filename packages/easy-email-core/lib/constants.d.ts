@@ -23,7 +23,13 @@ export declare enum BasicType {
     TEMPLATE = "template",
     CUSTOM_TEXT = "custom-text",
     EMPTY_PAGE = "empty-page",
-    POD_CUSTOM_PAGE = "pod-custom-page"
+    POD_CUSTOM_PAGE = "pod-custom-page",
+    NEWS = "news",
+    HEADING = "heading",
+    ROUNDED_BUTTON = "rounded-button",
+    POST_CARD = "post-card",
+    THANKYOU_CARD = "thankyou-card",
+    QUOTE_CARD = "quote"
 }
 export declare enum AdvancedType {
     TEXT = "advanced_text",

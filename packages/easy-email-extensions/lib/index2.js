@@ -39233,6 +39233,177 @@ function Table() {
     setVisible
   }));
 }
+function Heading() {
+  const { focusIdx: focusIdx2 } = useFocusIdx();
+  return /* @__PURE__ */ React__default.createElement(AttributesPanelWrapper, {
+    style: { padding: "20px" }
+  }, /* @__PURE__ */ React__default.createElement(CollapseWrapper, {
+    defaultActiveKey: ["0"]
+  }, /* @__PURE__ */ React__default.createElement(Collapse$1.Item, {
+    name: "0",
+    header: "Properties"
+  }, /* @__PURE__ */ React__default.createElement(TextField, {
+    label: "Title",
+    name: `${focusIdx2}.data.value.heading`,
+    inline: true,
+    alignment: "center"
+  }))));
+}
+function RoundedButton() {
+  const { focusIdx: focusIdx2 } = useFocusIdx();
+  return /* @__PURE__ */ React__default.createElement(AttributesPanelWrapper, {
+    style: { padding: "20px" }
+  }, /* @__PURE__ */ React__default.createElement(CollapseWrapper, {
+    defaultActiveKey: ["0"]
+  }, /* @__PURE__ */ React__default.createElement(Collapse$1.Item, {
+    name: "0",
+    header: "Properties"
+  }, /* @__PURE__ */ React__default.createElement(TextField, {
+    label: "Title",
+    name: `${focusIdx2}.data.value.text`,
+    inline: true,
+    alignment: "center"
+  }), /* @__PURE__ */ React__default.createElement(TextField, {
+    label: "Title",
+    name: `${focusIdx2}.data.value.link`,
+    inline: true,
+    alignment: "center"
+  }))));
+}
+function PostCard() {
+  const { focusIdx: focusIdx2 } = useFocusIdx();
+  const { onUploadImage } = useEditorProps();
+  return /* @__PURE__ */ React__default.createElement(AttributesPanelWrapper, {
+    style: { padding: "20px" }
+  }, /* @__PURE__ */ React__default.createElement(CollapseWrapper, {
+    defaultActiveKey: ["0"]
+  }, /* @__PURE__ */ React__default.createElement(Collapse$1.Item, {
+    name: "0",
+    header: "Properties"
+  }, /* @__PURE__ */ React__default.createElement(TextField, {
+    label: "Title",
+    name: `${focusIdx2}.data.value.title`,
+    inline: true,
+    alignment: "center"
+  }), /* @__PURE__ */ React__default.createElement(TextField, {
+    label: "Description",
+    name: `${focusIdx2}.data.value.description`,
+    inline: true,
+    alignment: "center"
+  }), /* @__PURE__ */ React__default.createElement(TextField, {
+    label: "Posts Link",
+    name: `${focusIdx2}.data.value.postLink`,
+    inline: true,
+    alignment: "center"
+  })), /* @__PURE__ */ React__default.createElement(Collapse$1.Item, {
+    name: "1",
+    header: "Image"
+  }, /* @__PURE__ */ React__default.createElement(ImageUploaderField, {
+    label: "Image",
+    labelHidden: false,
+    inline: true,
+    name: `${focusIdx2}.data.value.image`,
+    uploadHandler: onUploadImage
+  })), /* @__PURE__ */ React__default.createElement(Collapse$1.Item, {
+    name: "2",
+    header: "Attachement"
+  }, /* @__PURE__ */ React__default.createElement(ImageUploaderField, {
+    label: "Attachement",
+    labelHidden: false,
+    inline: true,
+    name: `${focusIdx2}.data.value.attachmentUrl`,
+    uploadHandler: onUploadImage
+  }))));
+}
+function ThankyouCard() {
+  const { focusIdx: focusIdx2 } = useFocusIdx();
+  const { onUploadImage } = useEditorProps();
+  return /* @__PURE__ */ React__default.createElement(AttributesPanelWrapper, {
+    style: { padding: "20px" }
+  }, /* @__PURE__ */ React__default.createElement(CollapseWrapper, {
+    defaultActiveKey: ["0", "1"]
+  }, /* @__PURE__ */ React__default.createElement(Collapse$1.Item, {
+    name: "0",
+    header: "Thank you note"
+  }, /* @__PURE__ */ React__default.createElement(TextField, {
+    label: "Title",
+    name: `${focusIdx2}.data.value.title`,
+    inline: true,
+    alignment: "center"
+  }), /* @__PURE__ */ React__default.createElement(TextField, {
+    label: "Description",
+    name: `${focusIdx2}.data.value.description`,
+    inline: true,
+    alignment: "center"
+  })), /* @__PURE__ */ React__default.createElement(Collapse$1.Item, {
+    name: "0",
+    header: "User details"
+  }, /* @__PURE__ */ React__default.createElement(TextField, {
+    label: "Name",
+    name: `${focusIdx2}.data.value.name`,
+    inline: true,
+    alignment: "center"
+  }), /* @__PURE__ */ React__default.createElement(TextField, {
+    label: "Designation",
+    name: `${focusIdx2}.data.value.designation`,
+    inline: true,
+    alignment: "center"
+  })), /* @__PURE__ */ React__default.createElement(Collapse$1.Item, {
+    name: "1",
+    header: "User Image"
+  }, /* @__PURE__ */ React__default.createElement(ImageUploaderField, {
+    label: "Attachement",
+    labelHidden: false,
+    inline: true,
+    name: `${focusIdx2}.data.value.image`,
+    uploadHandler: onUploadImage
+  })), /* @__PURE__ */ React__default.createElement(Collapse$1.Item, {
+    name: "2",
+    header: "Signature"
+  }, /* @__PURE__ */ React__default.createElement(ImageUploaderField, {
+    label: "Attachement",
+    labelHidden: false,
+    inline: true,
+    name: `${focusIdx2}.data.value.signatureImage`,
+    uploadHandler: onUploadImage
+  }))));
+}
+function News() {
+  const { focusIdx: focusIdx2 } = useFocusIdx();
+  const { onUploadImage } = useEditorProps();
+  return /* @__PURE__ */ React__default.createElement(AttributesPanelWrapper, {
+    style: { padding: "20px" }
+  }, /* @__PURE__ */ React__default.createElement(CollapseWrapper, {
+    defaultActiveKey: ["0", "1"]
+  }, /* @__PURE__ */ React__default.createElement(Collapse$1.Item, {
+    name: "0",
+    header: "Properties"
+  }, /* @__PURE__ */ React__default.createElement(TextField, {
+    label: "Title",
+    name: `${focusIdx2}.data.value.title`,
+    inline: true,
+    alignment: "center"
+  }), /* @__PURE__ */ React__default.createElement(TextField, {
+    label: "Description",
+    name: `${focusIdx2}.data.value.description`,
+    inline: true,
+    alignment: "center"
+  }), /* @__PURE__ */ React__default.createElement(TextField, {
+    label: "News Link",
+    name: `${focusIdx2}.data.value.newsLink`,
+    inline: true,
+    alignment: "center"
+  })), /* @__PURE__ */ React__default.createElement(Collapse$1.Item, {
+    name: "1",
+    header: "Image"
+  }, /* @__PURE__ */ React__default.createElement(ImageUploaderField, {
+    label: "Image",
+    labelHidden: false,
+    inline: true,
+    name: `${focusIdx2}.data.value.image`,
+    uploadHandler: onUploadImage
+  }))));
+}
 const blocks = {
   [BasicType.PAGE]: Page,
   [BasicType.SECTION]: Section,
@@ -39267,7 +39438,12 @@ const blocks = {
   [AdvancedType.WRAPPER]: Wrapper,
   [AdvancedType.SECTION]: Section,
   [AdvancedType.GROUP]: Group,
-  [AdvancedType.COLUMN]: Column
+  [AdvancedType.COLUMN]: Column,
+  [BasicType.NEWS]: News,
+  [BasicType.HEADING]: Heading,
+  [BasicType.POST_CARD]: PostCard,
+  [BasicType.THANKYOU_CARD]: ThankyouCard,
+  [BasicType.ROUNDED_BUTTON]: RoundedButton
 };
 class BlockAttributeConfigurationManager {
   static add(componentMap) {
