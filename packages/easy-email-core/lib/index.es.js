@@ -4326,7 +4326,8 @@ const Text$1 = createBlock({
       },
       attributes: {
         padding: "0px 0px 0px 0px",
-        align: "left"
+        align: "left",
+        "padding-top": "10px"
       },
       children: []
     };
@@ -8597,33 +8598,35 @@ var quoteInvertedImg = "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDkiIGhlaWdodD
 const MJML = `
 <mj-wrapper background-color="#F6F6F6" css-class="{{class}}" >
     <mj-section padding="16px" css-class="container" background-color="#FFFFFF">
-
     <mj-group>
     {% if image %}
-        <mj-column padding="20px" width="30%">
-            <mj-spacer height="40px" />
+        <mj-column
+            width="30%"
+            padding="50px 16px 0 0"
+        >
             <mj-hero
             mode="fixed-height"
-            height="180px"
+            height="150px"
             background-color="#E9E9E9"
             background-url="{{image}}"
+            background="no-repeat center center / cover"
             border-radius="4px"
-            width="70px"
           ></mj-hero>
         </mj-column>
     {% endif %}
         <mj-column {% if image %}width="70%"{% endif %}>
-            <mj-image mj-class="src-blockquote-inverted" style="object-fit: cover;" src={{quoteImg1}} width="40px" height="35px" align="left" />
-            <mj-spacer height="8px" />
-            <mj-text padding="0px 25px" font-size="18px" font-weight="600">{{title}}</mj-text>
-            <mj-text padding="0px 25px" font-size="14px" font-weight="400" color="#828282">
+            <mj-image src={{quoteImg2}} width="48px" height="35px" align="left" />
+            <mj-spacer height="8px"></mj-spacer>
+            <mj-text font-size="18px" line-height="12px" font-weight="600" color="#404040">{{title}}</mj-text>
+            <mj-spacer height="8px"></mj-spacer>
+            <mj-text font-size="12px" font-weight="400" color="#828282">
             {{designation}}
-        </mj-text>
-            <mj-text font-size="16px" mj-class="text--md text--grey">
+            </mj-text>
+            <mj-text width="100%" font-size="14px" padding="8px 0 0 0" line-height="20px" mj-class="text--md text--grey" color="#222">
                 {{description}}
             </mj-text>
             <mj-spacer height="10px" />
-            <mj-image mj-class="src-blockquote" width="36px" height="32px" src={{quoteImg2}} align="right" />
+            <mj-image mj-class="src-blockquote" width="36px" height="32px" src={{quoteImg1}} align="right" />
         </mj-column>
     </mj-group>
     </mj-section>
@@ -8639,7 +8642,7 @@ const QuoteCard = createBlock({
       data: {
         value: {
           title: "Selva Mathew",
-          description: "The prodigious growth of digitisation has unequivocally contributed siginificantly to business success. Furthermore, the numerous benefits of the IIT bombay programme undeniably offer a guranteed carrer escalation! nce, strong and invincible programs becomes paramount. IIT Bombay Programe in your carrier provide yoiu with impeccable blend of theory.",
+          description: "The prodigious growth of digitisation has unequivocally contributed siginificantly to business success. Furthermore, the numerous benefits of the IIT bombay programme undeniably offer a guranteed carrer escalation, strong and invincible programs becomes paramount. IIT Bombay Programe in your carrier provide you with impeccable blend of theory.",
           designation: "HOD, Department of Design",
           image: "http://res.cloudinary.com/dwkp0e1yo/image/upload/v1681283275/xq0ybcd1j77zfxeoz9up.png",
           quoteImg,
@@ -8658,7 +8661,7 @@ const QuoteCard = createBlock({
       mode,
       idx
     } = params;
-    const truncatedDescription = data.value.description.substring(0, 180);
+    const truncatedDescription = data.value.description.substring(0, 220);
     const mjmlData = __spreadProps(__spreadValues({
       title: data.value.title,
       description: truncatedDescription,

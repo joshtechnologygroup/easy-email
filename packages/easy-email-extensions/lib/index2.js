@@ -39404,6 +39404,42 @@ function News() {
     uploadHandler: onUploadImage
   }))));
 }
+function QuoteCard() {
+  const { focusIdx: focusIdx2 } = useFocusIdx();
+  const { onUploadImage } = useEditorProps();
+  return /* @__PURE__ */ React__default.createElement(AttributesPanelWrapper, {
+    style: { padding: "20px" }
+  }, /* @__PURE__ */ React__default.createElement(CollapseWrapper, {
+    defaultActiveKey: ["0"]
+  }, /* @__PURE__ */ React__default.createElement(Collapse$1.Item, {
+    name: "0",
+    header: "Properties"
+  }, /* @__PURE__ */ React__default.createElement(TextField, {
+    label: "Title",
+    name: `${focusIdx2}.data.value.title`,
+    inline: true,
+    alignment: "center"
+  }), /* @__PURE__ */ React__default.createElement(TextField, {
+    label: "Designation",
+    name: `${focusIdx2}.data.value.designation`,
+    inline: true,
+    alignment: "center"
+  }), /* @__PURE__ */ React__default.createElement(TextField, {
+    label: "Description",
+    name: `${focusIdx2}.data.value.description`,
+    inline: true,
+    alignment: "center"
+  })), /* @__PURE__ */ React__default.createElement(Collapse$1.Item, {
+    name: "1",
+    header: "Image"
+  }, /* @__PURE__ */ React__default.createElement(ImageUploaderField, {
+    label: "Image",
+    labelHidden: false,
+    inline: true,
+    name: `${focusIdx2}.data.value.image`,
+    uploadHandler: onUploadImage
+  }))));
+}
 const blocks = {
   [BasicType.PAGE]: Page,
   [BasicType.SECTION]: Section,
@@ -39443,7 +39479,8 @@ const blocks = {
   [BasicType.HEADING]: Heading,
   [BasicType.POST_CARD]: PostCard,
   [BasicType.THANKYOU_CARD]: ThankyouCard,
-  [BasicType.ROUNDED_BUTTON]: RoundedButton
+  [BasicType.ROUNDED_BUTTON]: RoundedButton,
+  [BasicType.QUOTE_CARD]: QuoteCard
 };
 class BlockAttributeConfigurationManager {
   static add(componentMap) {

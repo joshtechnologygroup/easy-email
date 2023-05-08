@@ -36,9 +36,10 @@ export const QuoteCard = createBlock<IQuoteCard>({
         value: {
           title: 'Selva Mathew',
           description:
-            'The prodigious growth of digitisation has unequivocally contributed siginificantly to business success. Furthermore, the numerous benefits of the IIT bombay programme undeniably offer a guranteed carrer escalation! nce, strong and invincible programs becomes paramount. IIT Bombay Programe in your carrier provide yoiu with impeccable blend of theory.',
+            'The prodigious growth of digitisation has unequivocally contributed siginificantly to business success. Furthermore, the numerous benefits of the IIT bombay programme undeniably offer a guranteed carrer escalation, strong and invincible programs becomes paramount. IIT Bombay Programe in your carrier provide you with impeccable blend of theory.',
           designation: 'HOD, Department of Design',
-          image: '',
+          image:
+            'http://res.cloudinary.com/dwkp0e1yo/image/upload/v1681283275/xq0ybcd1j77zfxeoz9up.png',
           quoteImg,
           quoteInvertedImg,
         },

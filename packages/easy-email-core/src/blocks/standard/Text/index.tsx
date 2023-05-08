@@ -20,6 +20,7 @@ export type IText = IBlockData<
     'container-background-color'?: string;
     width?: string;
     padding?: string;
+    'padding-top'?: string;
   },
   {
     content: string;
@@ -29,7 +30,7 @@ export type IText = IBlockData<
 export const Text = createBlock<IText>({
   name: 'Text',
   type: BasicType.TEXT,
-  create: (payload) => {
+  create: payload => {
     const defaultData: IText = {
       type: BasicType.TEXT,
       data: {
@@ -40,6 +41,7 @@ export const Text = createBlock<IText>({
       attributes: {
         padding: '0px 0px 0px 0px',
         align: 'left',
+        'padding-top': '10px',
       },
       children: [],
     };
@@ -48,6 +50,13 @@ export const Text = createBlock<IText>({
   validParentType: [BasicType.COLUMN, BasicType.HERO],
   render(params) {
     const { data } = params;
-    return <BasicBlock params={params} tag="mj-text">{data.data.value.content}</BasicBlock>;
+    return (
+      <BasicBlock
+        params={params}
+        tag='mj-text'
+      >
+        {data.data.value.content}
+      </BasicBlock>
+    );
   },
 });

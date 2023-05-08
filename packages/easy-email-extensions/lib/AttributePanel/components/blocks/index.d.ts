@@ -23,6 +23,7 @@ import { RoundedButton } from './RoundedButton';
 import { PostCard } from './PostCard';
 import { ThankyouCard } from './ThankyouCard';
 import { News } from './News';
+import { QuoteCard } from './Quote';
 export declare const blocks: {
     page: typeof Page;
     section: typeof Section;
@@ -63,4 +64,5 @@ export declare const blocks: {
     "post-card": typeof PostCard;
     "thankyou-card": typeof ThankyouCard;
     "rounded-button": typeof RoundedButton;
+    quote: typeof QuoteCard;
 };

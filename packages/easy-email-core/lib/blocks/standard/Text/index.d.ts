@@ -14,6 +14,7 @@ export declare type IText = IBlockData<{
     'container-background-color'?: string;
     width?: string;
     padding?: string;
+    'padding-top'?: string;
 }, {
     content: string;
 }>;

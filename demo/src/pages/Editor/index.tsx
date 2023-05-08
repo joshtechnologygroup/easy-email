@@ -27,16 +27,21 @@ import { Stack } from '@demo/components/Stack';
 import { pushEvent } from '@demo/utils/pushEvent';
 import { FormApi } from 'final-form';
 import { UserStorage } from '@demo/utils/user-storage';
-
+import { merge } from 'lodash';
 import { useCollection } from './components/useCollection';
 import {
   AdvancedType,
   BasicType,
+  BlockManager,
   getPageIdx,
   IBlockData,
   JsonToMjml,
+  components,
+  getChildIdx,
 } from 'easy-email-core';
+const { BlockRenderer } = components;
 import {
+  BlockAttributeConfigurationManager,
   BlockMarketManager,
   ExtensionProps,
   StandardLayout,
@@ -66,35 +71,24 @@ const defaultCategories: ExtensionProps['categories'] = [
     active: true,
     blocks: [
       {
-        type: AdvancedType.TEXT,
+        type: BasicType.CUSTOM_TEXT,
+        payload: { attributes: { padding: '10px 10px 10px 10px' } },
       },
       {
-        type: AdvancedType.IMAGE,
+        type: BasicType.IMAGE,
         payload: { attributes: { padding: '0px 0px 0px 0px' } },
       },
       {
-        type: AdvancedType.BUTTON,
-      },
-      {
-        type: AdvancedType.SOCIAL,
-      },
-      {
-        type: AdvancedType.DIVIDER,
-      },
-      {
-        type: AdvancedType.SPACER,
-      },
-      {
-        type: AdvancedType.HERO,
-      },
-      {
-        type: AdvancedType.WRAPPER,
-      },
-      {
-        type: BasicType.HEADING,
+        type: BasicType.BUTTON,
+        payload: {
+          attributes: { 'inner-padding': '8px 16px', 'background-color': '#5F55D0' },
+        },
       },
       {
         type: BasicType.NEWS,
+      },
+      {
+        type: BasicType.HEADING,
       },
       {
         type: BasicType.ROUNDED_BUTTON,
@@ -114,73 +108,6 @@ const defaultCategories: ExtensionProps['categories'] = [
       {
         type: BasicType.QUOTE_CARD,
       },
-    ],
-  },
-  {
-    label: 'Layout',
-    active: true,
-    displayType: 'column',
-    blocks: [
-      {
-        title: '2 columns',
-        payload: [
-          ['50%', '50%'],
-          ['33%', '67%'],
-          ['67%', '33%'],
-          ['25%', '75%'],
-          ['75%', '25%'],
-        ],
-      },
-      {
-        title: '3 columns',
-        payload: [
-          ['33.33%', '33.33%', '33.33%'],
-          ['25%', '25%', '50%'],
-          ['50%', '25%', '25%'],
-        ],
-      },
-      {
-        title: '4 columns',
-        payload: [['25%', '25%', '25%', '25%']],
-      },
-    ],
-  },
-  {
-    label: 'Custom',
-    active: true,
-    displayType: 'custom',
-    blocks: [
-      <BlockAvatarWrapper type={CustomBlocksType.PRODUCT_RECOMMENDATION}>
-        <div
-          style={{
-            position: 'relative',
-            border: '1px solid #ccc',
-            marginBottom: 20,
-            width: '80%',
-            marginLeft: 'auto',
-            marginRight: 'auto',
-          }}
-        >
-          <img
-            src={
-              'http://res.cloudinary.com/dwkp0e1yo/image/upload/v1665841389/ctbjtig27parugrztdhk.png'
-            }
-            style={{
-              maxWidth: '100%',
-            }}
-          />
-          <div
-            style={{
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              width: '100%',
-              height: '100%',
-              zIndex: 2,
-            }}
-          />
-        </div>
-      </BlockAvatarWrapper>,
     ],
   },
 ];
@@ -213,6 +140,7 @@ export default function Editor() {
   const history = useHistory();
   const templateData = useAppSelector('template');
   const [locale, setLocale] = useState('en');
+  const [t1, setT1] = useState(false);
   const { addCollection, removeCollection, collectionCategory } = useCollection();
 
   const { width } = useWindowSize();
@@ -242,6 +170,55 @@ export default function Editor() {
       };
     }
   }, [collectionCategory]);
+
+  useEffect(() => {
+    BlockManager.registerBlocks({
+      [BasicType.POD_CUSTOM_PAGE]: {
+        name: 'Page',
+        type: BasicType.POD_CUSTOM_PAGE,
+        create: payload => {
+          const defaultData = {
+            type: BasicType.POD_CUSTOM_PAGE,
+            data: {},
+            attributes: {
+              'background-color': '#efeeea',
+              width: '600px',
+            },
+            children: [],
+          };
+          return merge(defaultData, payload);
+        },
+        validParentType: [],
+        render(params) {
+          const { data } = params;
+          return (
+            <>
+              {`<mjml>\n <mj-head>\n <mj-attributes>\n <!-- Resets -->\n<mj-section padding="0"></mj-section>\n<mj-column padding="0"></mj-column>\n<mj-text padding="0"></mj-text>\n<mj-image font-size="0" padding="0"></mj-image>\n<mj-social-element padding="0"></mj-social-element>\n<mj-social padding="0"></mj-social>\n<mj-hero padding="0"></mj-hero>\n<mj-wrapper padding="0"></mj-wrapper>\n<mj-divider padding="0"></mj-divider>\n<mj-table padding="0"></mj-table>\n<mj-button padding="0"></mj-button>\n\n \n </mj-attributes>\n <mj-style inline="inline">\n body {\n margin: 0;\n padding: 0;\n word-spacing: normal;\n mso-line-height-rule: exactly;\n font-family: Arial, Helvetica, sans-serif;\n letter-spacing: normal;\n }\n\n a {\n text-decoration: none;\n }\n\n p {\n margin: 0;\n }\n\n .width-auto table {\n width: auto;\n }\n\n .ml-auto table {\n margin-left: auto;\n }\n\n .container {\n max-width: 450px !important;\n }\n\n .mw-52 {\n max-width: 52px;\n }\n\n .btn-block a {\n display: block !important;padding: 6px 12px\n }\n\n\n </mj-style>\n <mj-style>\n .divider {\n border-top: 1px dashed #DEDEDE;\n }\n .confetti-image > table {\n background-color: #2A61F0;\n background-image: url("https://notification-dev-static.s3.amazonaws.com/Calyx/images/confetti.png") !important;\n background-size: 100% 130px !important;\n background-repeat: no-repeat !important;\n background-position: center top !important;\n }\n\n @media only screen and (max-width: 360px) {\n .text-center-sm {\n width: 100% !important;\n text-align: center !important;\n }\n }\n </mj-style>\n
+ </mj-head>\n <mj-body>\n <mj-section text-align="left" background-color="#F6F6F6">\n <mj-raw>\n <!--[if mso | IE]><table role="presentation" border="0" cellpadding="0" cellspacing="0" width="600" ><tr><td style="font-size: 0px; padding: 12px 16px;background-color:#F4F4F3" ><![endif]-->\n <div class="mj-column-per-100 mj-outlook-group-fix" style="font-size: 0;background-color:#F4F4F3">\n <div style="padding: 12px 16px">\n <!--[if mso | IE]><table border="0" cellpadding="0" cellspacing="0" role="presentation" width="568" ><tr><td width="284" style="vertical-align:middle;" ><![endif]-->\n <div class="mj-column-per-50 mj-outlook-group-fix text-center-sm" style="min-width: 146px;font-size: 0; display: inline-block; vertical-align: middle; width: 49.9%;">\n <table border="0" cellpadding="0" cellspacing="0" role="presentation" width="284" style="width:100%">\n <tr><td>\n <p style="margin: 0; word-break: break-word; font-size: 14px; font-weight: 400; line-height: 20px; color: #333333;">\n \n\n \n </p>\n </td></tr>\n </table>\n </div>\n <!--[if mso | IE]></td><td width="284" style="vertical-align:middle;" align="right" ><![endif]-->\n <div class="mj-column-per-50 mj-outlook-group-fix text-center-sm" style="min-width: 131px;font-size: 0; text-align: right; display: inline-block; vertical-align: middle; width: 50%;">\n <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="display: inline-table;">\n <tr>\n <td style="vertical-align:middle;" valign="middle">\n <table border="0" cellpadding="0" cellspacing="0" role="presentation" width="13" style="width:100%;">\n <tr>\n <td style="font-size:0;height:13px;vertical-align:middle;width:12px;">\n <img alt="calendar" height="13" src="https://notification-dev-static.s3.amazonaws.com/Calyx/images/calendar.png" style="display:block;" width="12">\n </td>\n </tr>\n </table>\n </td>\n <td style="padding: 0 0 0 5px;vertical-align: middle;" valign="middle">\n <span style="word-break: break-word; color: #000000; opacity: 0.6; font-size: 12px; font-weight: 400;line-height: 20px;">Thursday 06 Apr 2023</span>\n </td>\n </tr>\n </table>\n </div>\n <!--[if mso | IE]></td></tr></table><![endif]-->\n </div>\n </div>\n <!--[if mso | IE]></td></tr></table><![endif]-->\n </mj-raw>\n </mj-section>\n\n <mj-section text-align="left" background-color="#F6F6F6">\n <mj-raw>\n <!--[if mso | IE]><table role="presentation" border="0" cellpadding="0" cellspacing="0" width="600"><tr><td style="background-color: #FFFFFF;" ><![endif]-->\n <div class="mj-column-per-100 mj-outlook-group-fix" style="background-color: #FFFFFF; font-size: 0px">\n <!--[if mso | IE]><table border="0" cellpadding="0" cellspacing="0" role="presentation" ><tr><td style="padding: 0 0 24px;vertical-align:top;width:507px;" ><![endif]-->\n <div class="mj-outlook-group-fix" style="padding: 30px 0 24px; font-size: 0; display: inline-block; vertical-align: top; width: 83.4%">\n <!--[if mso | IE]><table border="0" cellpadding="0" cellspacing="0" role="presentation" width="100%"><tr><td style="padding-top: 30px;" align="left"><![endif]-->\n <table border="0" cellpadding="0" cellspacing="0" role="presentation" width="507" style="width: 100%;">\n <tr>\n <td style="width:72px;vertical-align: top;padding: 0px 16px;" valign="middle">\n <p style="width: 72px; height: 72px; margin: 0px">\n <span style="display:inline-block;height:72px;line-height:72px;vertical-align:middle"></span>\n <img alt="company-logo" height="auto" src="https://test-bucket-calyx.s3.amazonaws.com/thumbnails/college_logos/cc79f340-ca3a-11ed-ac53-f9b48f0ab15f..0x150_q85_pad_image_size_ratio_const-dashboard_and_mail.png" style="border: 0;vertical-align: middle; outline: none; text-decoration: none; height: auto; width: 99.5%; font-size: 0" width="72" />\n </p>\n </td>\n <td valign="middle">\n <p style="margin: 0; word-break: break-word; font-size: 24px; font-weight: 500; line-height: 32px; color: #111111">Robert Bosch Engineering &amp; Business Solutions PVT</p>\n </td>\n </tr>\n </table>\n <!--[if mso | IE]></td></tr></table><![endif]-->\n </div>\n <!--[if mso | IE]></td><td style="vertical-align:top;width:93px;" ><![endif]-->\n <div class="mj-outlook-group-fix" style="font-size: 0; display: inline-block; vertical-align: top; width: 16.5%">\n <table cellpadding="0" cellspacing="0" role="presentation" style="width: 100%; border-collapse: collapse; border-spacing: 0" width="93" border="0">\n <tr>\n <td align="right">\n <img height="auto" src="https://notification-dev-static.s3.amazonaws.com/Calyx/images/header-curve.png" style="border: 0; display: block; outline: none; text-decoration: none; height: auto; width: 100%; font-size: 0" width="74" />\n </td>\n </tr>\n </table>\n </div>\n <!--[if mso | IE]></td></tr></table><![endif]-->\n </div>\n <!--[if mso | IE]></td></tr></table><![endif]-->\n </mj-raw>\n</mj-section>\n\n\n <!-- Main Area-->\n \n \n <mj-section background-color="#F6F6F6">\n <mj-column>\n <mj-spacer height="20px" />\n </mj-column>\n </mj-section>\n\n \n`}
+              {data.children.map((child, index) => (
+                <BlockRenderer
+                  {...params}
+                  idx={getChildIdx(getPageIdx(), index)}
+                  key={index}
+                  data={child}
+                />
+              ))}
+              {
+                '\n \n\n \n\n <!-- Button Area starts-->\n \n\n \n \n\n \n \n\n <mj-raw></mj-raw>\n \n <mj-section background-color="#F6F6F6">\n <mj-column>\n <mj-spacer height="40px" />\n </mj-column>\n </mj-section>\n\n <mj-raw></mj-raw>\n <mj-wrapper padding="16px 16px 12px" background-color="#F6F6F6">\n <mj-section>\n <mj-column vertical-align="middle">\n <mj-image alt="POD logo" align="center" src="https://notification-dev-static.s3.amazonaws.com/Calyx/images/pod-logo.png" width="132px" height="32px"></mj-image>\n </mj-column>\n </mj-section>\n </mj-wrapper>\n <mj-raw></mj-raw>\n\n <mj-section padding="16px" background-color="#EDEDE9">\n <mj-column>\n <mj-text font-size="10px" line-height="14px" font-weight="400" color="#666666" padding-bottom="12px">\n <span style="font-weight: 700;">Confidentiality Notice:</span>\n This communication is intended solely for the person or organization to whom it is addressed and may be confidential and/or legally privileged.\n If you are not the intended recipient, you must not show it to anyone, copy, distribute, or take any action in reliance on it.\n If you have received this message in error, please inform us at <a href="mailto:" style="text-decoration: none; color: #0A71D1"></a> and delete this email from your system.\n </mj-text>\n <mj-text font-size="10px" line-height="14px" font-weight="400" color="#666666" padding-bottom="12px">\n <span style="font-weight: 700;">Prevent Unauthorized Access Notice:</span>\n We have enabled auto-login for your convenience, you are strongly advised not to forward this email or share links provided in the email to protect your account from unauthorized access.\n Click here to read our Privacy Policy. <a href="" style="color:#0A71D1">Click here to read our Privacy Policy.</a>\n </mj-text>\n </mj-column>\n </mj-section>\n </mj-body>\n</mjml>'
+              }
+            </>
+          );
+        },
+      },
+    });
+    // BlockAttributeConfigurationManager.add({
+    // [BasicType.NEWSLETTER_PAGE]: () => <></>,
+    // });
+
+    setTimeout(() => {
+      setT1(true);
+    }, 1000);
+  }, []);
 
   useEffect(() => {
     if (id) {
@@ -310,6 +287,7 @@ export default function Editor() {
   };
 
   const onExportMJML = (values: IEmailTemplate) => {
+    values.content.type = BasicType.EMPTY_PAGE;
     const html = JsonToMjml({
       data: values.content,
       mode: 'production',
@@ -323,13 +301,13 @@ export default function Editor() {
   };
 
   const initialValues: IEmailTemplate | null = useMemo(() => {
-    if (!templateData) return null;
+    if (!templateData || !t1) return null;
     const sourceData = cloneDeep(templateData.content) as IBlockData;
     return {
       ...templateData,
       content: sourceData, // replace standard block
     };
-  }, [templateData]);
+  }, [t1, templateData]);
 
   const onSubmit = useCallback(
     async (
@@ -408,8 +386,8 @@ export default function Editor() {
         height={'calc(100vh - 68px)'}
         data={initialValues}
         // interactiveStyle={{
-        //   hoverColor: '#78A349',
-        //   selectedColor: '#1890ff',
+        // hoverColor: '#78A349',
+        // selectedColor: '#1890ff',
         // }}
         // onAddCollection={addCollection}
         // onRemoveCollection={({ id }) => removeCollection(id)}
@@ -418,7 +396,7 @@ export default function Editor() {
         onSubmit={onSubmit}
         onChangeMergeTag={onChangeMergeTag}
         autoComplete
-        enabledLogic
+        // enabledLogic
         // enabledMergeTagsBadge
         dashed={false}
         mergeTags={mergeTags}
@@ -504,7 +482,7 @@ export default function Editor() {
                 showEditPanel={true}
                 showBlocksTab={true}
                 showLayersTab={true}
-                compact={!smallScene}
+                compact={false}
                 categories={defaultCategories}
                 showConfigurationsPanel={true}
               >
