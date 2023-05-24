@@ -8,7 +8,7 @@ import { SyncScrollIframeComponent } from '@/components/UI/SyncScrollIframeCompo
 import { classnames } from '@/utils/classnames';
 import { useActiveTab } from '@/hooks/useActiveTab';
 
-const MOBILE_WIDTH = 320;
+const MOBILE_WIDTH = 360;
 const MOBILE_Height = 640;
 
 export function MobileEmailPreview() {

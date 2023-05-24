@@ -6327,12 +6327,12 @@ function getStyle$1(styleText) {
     return a;
   }, {});
 }
-const MOBILE_WIDTH$1 = 320;
+const MOBILE_WIDTH$1 = 360;
 const PreviewEmailContext = React.createContext({
   html: "",
   reactNode: null,
   errMsg: "",
-  mobileWidth: 320
+  mobileWidth: 390
 });
 const PreviewEmailProvider = (props) => {
   const { current: iframe } = useRef(document.createElement("iframe"));
@@ -7335,7 +7335,7 @@ const SyncScrollIframeComponent = ({ children, title, windowRef, isActive, style
     }, mountNode && createPortal(children, mountNode));
   }, [title, style, onLoad, mountNode, children]);
 };
-const MOBILE_WIDTH = 320;
+const MOBILE_WIDTH = 360;
 const MOBILE_Height = 640;
 function MobileEmailPreview() {
   const { mobileWidth } = usePreviewEmail();
