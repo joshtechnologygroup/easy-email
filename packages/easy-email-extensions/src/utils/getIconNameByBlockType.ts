@@ -3,6 +3,7 @@ import { get } from 'lodash';
 
 const iconsMap = {
   [BasicType.TEXT]: 'icon-text',
+  [BasicType.CUSTOM_TEXT]: 'icon-text',
   [BasicType.SECTION]: 'icon-section',
   [BasicType.COLUMN]: 'icon-column',
   [BasicType.DIVIDER]: 'icon-divider',
@@ -35,7 +36,6 @@ const iconsMap = {
   [AdvancedType.HERO]: 'icon-hero',
 
   'custom-image': 'icon-img',
-  'custom-text': 'icon-text',
   'custom-spacer': 'icon-spacing',
   'custom-divider': 'icon-divider',
   'rounded-button': 'icon-button',

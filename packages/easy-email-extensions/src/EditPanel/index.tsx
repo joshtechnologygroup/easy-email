@@ -26,7 +26,7 @@ export function EditPanel() {
       width={360}
     >
       <Tabs
-        defaultActiveTab={ showBlocksTab ? '2' : '1' }
+        defaultActiveTab={showBlocksTab ? '2' : '1'}
         style={{ width: '100%', padding: 0 }}
         renderTabHeader={(_, DefaultHeader) => (
           <div className={styles.largeTabsHeader}>
@@ -34,25 +34,29 @@ export function EditPanel() {
           </div>
         )}
       >
-        { showBlocksTab && (<TabPane
-          key='2'
-          title='Block'
-        >
-          <FullHeightOverlayScrollbars height={`calc(${height} - 60px)`}>
-            <Blocks />
-          </FullHeightOverlayScrollbars>
-        </TabPane>)}
+        { showBlocksTab && (
+          <TabPane
+            key='2'
+            title='Block'
+          >
+            <FullHeightOverlayScrollbars height={`calc(${height} - 60px)`}>
+              <Blocks />
+            </FullHeightOverlayScrollbars>
+          </TabPane>
+        )}
+        { showLayersTab && (
 
-        { showLayersTab && (<TabPane
-          key='1'
-          title={t('Layer')}
-        >
-          <FullHeightOverlayScrollbars height={`calc(${height} - 60px)`}>
-            <div style={{ padding: 20 }}>
-              <BlockLayer/>
-            </div>
-          </FullHeightOverlayScrollbars>
-        </TabPane>)}
+          <TabPane
+            key='1'
+            title={t('Layer')}
+          >
+            <FullHeightOverlayScrollbars height={`calc(${height} - 60px)`}>
+              <div style={{ padding: 20 }}>
+                <BlockLayer />
+              </div>
+            </FullHeightOverlayScrollbars>
+          </TabPane>
+        )}
       </Tabs>
       {!compact && (
         <ConfigurationDrawer

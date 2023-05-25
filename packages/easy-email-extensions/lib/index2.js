@@ -40414,6 +40414,7 @@ function getDirectionFormDropPosition(position) {
 }
 const iconsMap = {
   [BasicType.TEXT]: "icon-text",
+  [BasicType.CUSTOM_TEXT]: "icon-text",
   [BasicType.SECTION]: "icon-section",
   [BasicType.COLUMN]: "icon-column",
   [BasicType.DIVIDER]: "icon-divider",
@@ -40443,7 +40444,6 @@ const iconsMap = {
   [AdvancedType.GROUP]: "icon-group",
   [AdvancedType.HERO]: "icon-hero",
   "custom-image": "icon-img",
-  "custom-text": "icon-text",
   "custom-spacer": "icon-spacing",
   "custom-divider": "icon-divider",
   "rounded-button": "icon-button"
@@ -43952,7 +43952,7 @@ function BlockItem({
     style: { fontSize: 20 },
     iconName: getIconNameByBlockType(type)
   }), /* @__PURE__ */ React__default.createElement(Typography$1.Text, {
-    style: { marginTop: 10 }
+    style: { marginTop: 10, wordBreak: "normal" }
   }, title2 || (block2 == null ? void 0 : block2.name)))));
 }
 function LayoutItem({
@@ -48922,7 +48922,7 @@ function ConfigurationPanel({
   }, []);
   if (!inited)
     return null;
-  return /* @__PURE__ */ React__default.createElement(React__default.Fragment, null, showSourceCode ? /* @__PURE__ */ React__default.createElement(Tabs$1, {
+  return /* @__PURE__ */ React__default.createElement(React__default.Fragment, null, showSourceCode || !compact ? /* @__PURE__ */ React__default.createElement(Tabs$1, {
     className: styles.tabs,
     renderTabHeader: (_, DefaultHeader) => !compact ? /* @__PURE__ */ React__default.createElement("div", {
       className: styles.largeTabsHeader,
@@ -48946,7 +48946,7 @@ function ConfigurationPanel({
     }, t("Configuration"))
   }, /* @__PURE__ */ React__default.createElement(FullHeightOverlayScrollbars, {
     height: `calc(${height} - 60px)`
-  }, /* @__PURE__ */ React__default.createElement(AttributePanel, null))), /* @__PURE__ */ React__default.createElement(Tabs$1.TabPane, {
+  }, /* @__PURE__ */ React__default.createElement(AttributePanel, null))), showSourceCode ? /* @__PURE__ */ React__default.createElement(Tabs$1.TabPane, {
     destroyOnHide: true,
     key: "Source code",
     title: /* @__PURE__ */ React__default.createElement("div", {
@@ -48954,7 +48954,7 @@ function ConfigurationPanel({
     }, t("Source code"))
   }, /* @__PURE__ */ React__default.createElement(FullHeightOverlayScrollbars, {
     height: `calc(${height} - 60px)`
-  }, /* @__PURE__ */ React__default.createElement(SourceCodePanel, null)))) : /* @__PURE__ */ React__default.createElement(AttributePanel, null));
+  }, /* @__PURE__ */ React__default.createElement(SourceCodePanel, null))) : /* @__PURE__ */ React__default.createElement(React__default.Fragment, null)) : /* @__PURE__ */ React__default.createElement(AttributePanel, null));
 }
 function ConfigurationDrawer({
   height,
@@ -48991,7 +48991,7 @@ function ConfigurationDrawer({
       onCancel: onClose
     }, /* @__PURE__ */ React__default.createElement(ConfigurationPanel, {
       compact,
-      showSourceCode: true,
+      showSourceCode: false,
       height,
       onBack: onClose
     })));

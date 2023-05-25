@@ -480,7 +480,7 @@ export default function Editor() {
                 showEditPanel={true}
                 showBlocksTab={true}
                 showLayersTab={true}
-                compact={!smallScene}
+                compact={false}
                 categories={defaultCategories}
                 showConfigurationsPanel={true}
               >
