@@ -6574,15 +6574,6 @@ function useBlock() {
             children: [child],
             attributes: {}
           };
-          if (item == "column") {
-            payload2.attributes = {
-              "css-class": "container white-bg"
-            };
-          } else if (item == "section") {
-            payload2.attributes = {
-              "css-class": "body-bg"
-            };
-          }
           child = createBlockDataByType(item, payload2);
           nextFocusIdx += ".children.[0]";
         });

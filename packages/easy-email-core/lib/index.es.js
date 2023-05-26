@@ -8256,7 +8256,7 @@ const CustomText = createBlock({
     };
     return merge(defaultData, payload);
   },
-  validParentType: [BasicType.COLUMN],
+  validParentType: [BasicType.WRAPPER, AdvancedType.WRAPPER, BasicType.POD_CUSTOM_PAGE],
   render: ({ mode, data, idx }) => {
     return /* @__PURE__ */ React.createElement(Text, __spreadValues({
       "css-class": mode == "testing" ? getPreviewClassName(idx || null, data.type) : ""

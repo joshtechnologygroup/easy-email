@@ -57,7 +57,7 @@ var __async = (__this, __arguments, generator) => {
 import * as React from "react";
 import React__default, { Children, isValidElement, cloneElement, createContext, useContext, Component, useMemo, memo, forwardRef, useEffect, useRef, useLayoutEffect, useState, useImperativeHandle, PureComponent, useCallback, useReducer, createRef, Fragment, createElement, Suspense } from "react";
 import { IconFont, useEditorProps, useRefState, Stack as Stack$4, getShadowRoot, DATA_CONTENT_EDITABLE_TYPE, ContentEditableType, TextStyle, useBlock, useFocusIdx, useEditorContext, useFocusBlockLayout, MergeTagBadge, FIXED_CONTAINER_ID, getPluginElement, RICH_TEXT_BAR_ID, CONTENT_EDITABLE_CLASS_NAME, getEditorRoot, DATA_CONTENT_EDITABLE_IDX, scrollBlockEleIntoView, useHoverIdx, useDataTransfer, getBlockNodeByChildEle, getDirectionPosition, DATA_ATTRIBUTE_DROP_CONTAINER, BlockAvatarWrapper, isTextBlock, getBlockNodeByIdx, useLazyState, useActiveTab, ActiveTabKeys } from "easy-email-editor";
-import { BasicType, ImageManager, EMAIL_BLOCK_CLASS_NAME, BlockManager, createBlockDataByType, AdvancedType, Operator, OperatorSymbol, isAdvancedBlock, getParentByIdx, getParentIdx, getIndexByIdx, getSiblingIdx, getNodeIdxFromClassName, getNodeIdxClassName, getPageIdx, getChildIdx, MjmlToJson, JsonToMjml, getNodeTypeFromClassName } from "easy-email-core";
+import { BasicType, ImageManager, EMAIL_BLOCK_CLASS_NAME, BlockManager, AdvancedType, createBlockDataByType, Operator, OperatorSymbol, isAdvancedBlock, getParentByIdx, getParentIdx, getIndexByIdx, getSiblingIdx, getNodeIdxFromClassName, getNodeIdxClassName, getPageIdx, getChildIdx, MjmlToJson, JsonToMjml, getNodeTypeFromClassName } from "easy-email-core";
 import ReactDOM, { findDOMNode, createPortal } from "react-dom";
 import { useField, Field, useForm as useForm$1, Form as Form$3, version as version$2, useFormState } from "react-final-form";
 var index$2 = "";
@@ -36629,7 +36629,7 @@ const AttributesPanelWrapper = (props) => {
   }, /* @__PURE__ */ React__default.createElement(Stack$4, {
     spacing: "extraTight",
     alignment: "center"
-  }, /* @__PURE__ */ React__default.createElement(EyeIcon, null), /* @__PURE__ */ React__default.createElement(TextStyle, {
+  }, (Object.values(BasicType).includes(block2.type) || Object.values(AdvancedType).includes(block2.type)) && /* @__PURE__ */ React__default.createElement(EyeIcon, null), /* @__PURE__ */ React__default.createElement(TextStyle, {
     variation: "strong",
     size: "large"
   }, `${block2.name} `, " ", t("attributes"))), /* @__PURE__ */ React__default.createElement(Stack$4.Item, null, props.extra))))), /* @__PURE__ */ React__default.createElement("div", {
@@ -40441,7 +40441,12 @@ const iconsMap = {
   [AdvancedType.SECTION]: "icon-section",
   [AdvancedType.COLUMN]: "icon-column",
   [AdvancedType.GROUP]: "icon-group",
-  [AdvancedType.HERO]: "icon-hero"
+  [AdvancedType.HERO]: "icon-hero",
+  "custom-image": "icon-img",
+  "custom-text": "icon-text",
+  "custom-spacer": "icon-spacing",
+  "custom-divider": "icon-divider",
+  "rounded-button": "icon-button"
 };
 function getIconNameByBlockType(type) {
   return lodash.exports.get(iconsMap, type) || "icon-number";
