@@ -9,5 +9,6 @@ export interface ImageUploaderProps {
         value: string;
         label: React.ReactNode;
     }>;
+    showInputField?: boolean;
 }
 export declare function ImageUploader(props: ImageUploaderProps): JSX.Element;

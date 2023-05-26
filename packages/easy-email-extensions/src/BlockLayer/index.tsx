@@ -82,7 +82,8 @@ export function BlockLayer(props: BlockLayerProps) {
 
   const renderTitle = useCallback(
     (data: IBlockDataWithId) => {
-      const isPage = data.type === BasicType.PAGE;
+      const isPage =
+        data.type === BasicType.PAGE || data.type === BasicType.POD_CUSTOM_PAGE;
       const title = propsRenderTitle
         ? propsRenderTitle(data)
         : getBlockTitle(data);

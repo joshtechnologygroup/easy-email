@@ -43,5 +43,7 @@ export declare const standardBlocks: {
     "accordion-text": import("../..").IBlock<import("../..").IBlockData<any, any>>;
     table: import("../..").IBlock<ITable>;
     "custom-text": import("../..").IBlock<ICustomText>;
+    "empty-page": import("../..").IBlock<import("../..").IBlockData<any, any>>;
+    "pod-custom-page": import("../..").IBlock<import("../..").IBlockData<any, any>>;
 };
 export type { IPage, ISection, IWrapper, IColumn, IGroup, IText, ITable, IImage, IButton, IDivider, ISpacer, ICarousel, IHero, ISocial, INavbar, IRaw, IAccordion, IAccordionElement, IAccordionTitle, IAccordionText, ITemplate, ICustomText, };

@@ -1,6 +1,6 @@
 import React from 'react';
 import { IBlockData } from '@core/typings';
-import { BasicType } from '@core/constants';
+import { AdvancedType, BasicType } from '@core/constants';
 import { createBlock } from '@core/utils/createBlock';
 import { merge } from 'lodash';
 import { Text } from '@core/components/Text';
@@ -39,7 +39,7 @@ export const CustomText = createBlock<ICustomText>({
       type: BasicType.CUSTOM_TEXT,
       data: {
         value: {
-          content: '{{text}}',
+          content: 'Type Something...',
         },
       },
       attributes: {
@@ -50,14 +50,14 @@ export const CustomText = createBlock<ICustomText>({
     };
     return merge(defaultData, payload);
   },
-  validParentType: [BasicType.PAGE],
+  validParentType: [BasicType.WRAPPER, AdvancedType.WRAPPER, BasicType.POD_CUSTOM_PAGE],
   render: ({ mode, data, idx }) => {
     return (
       <Text
-      css-class={mode=='testing' ? getPreviewClassName(idx || null, data.type) : ''}
-      {...data.attributes}
+        css-class={mode == 'testing' ? getPreviewClassName(idx || null, data.type) : ''}
+        {...data.attributes}
       >
-      {data.data.value.content}
+        {data.data.value.content}
       </Text>
     );
   },

@@ -8,7 +8,7 @@ import { cloneDeep, isString } from 'lodash';
 import mjml from 'mjml-browser';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 
-export const MOBILE_WIDTH = 320;
+export const MOBILE_WIDTH = 360;
 
 export const PreviewEmailContext = React.createContext<{
   html: string;
@@ -19,7 +19,7 @@ export const PreviewEmailContext = React.createContext<{
   html: '',
   reactNode: null,
   errMsg: '',
-  mobileWidth: 320
+  mobileWidth: 390
 });
 
 export const PreviewEmailProvider: React.FC<{}> = (props) => {

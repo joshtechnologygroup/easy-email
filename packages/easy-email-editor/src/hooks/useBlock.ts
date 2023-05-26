@@ -72,9 +72,11 @@ export function useBlock() {
         );
         if (autoCompletePaths) {
           autoCompletePaths.forEach((item) => {
-            child = createBlockDataByType(item, {
+            const payload = {
               children: [child],
-            });
+              attributes: {},
+            }
+            child = createBlockDataByType(item, payload);
             nextFocusIdx += '.children.[0]';
           });
         }

@@ -16,6 +16,7 @@ export function generateAdvancedContentBlock<T extends IBlockData>(option: {
 
     validParentType: [
       BasicType.PAGE,
+      BasicType.POD_CUSTOM_PAGE,
       BasicType.WRAPPER,
       BasicType.COLUMN,
       BasicType.GROUP,
@@ -62,6 +63,7 @@ export function generateAdvancedContentBlock<T extends IBlockData>(option: {
 
       if (
         parentBlockData.type === BasicType.PAGE ||
+        parentBlockData.type === BasicType.POD_CUSTOM_PAGE ||
         parentBlockData.type === BasicType.WRAPPER ||
         parentBlockData.type === AdvancedType.WRAPPER
       ) {

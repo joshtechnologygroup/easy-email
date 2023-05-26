@@ -26,6 +26,8 @@ export enum BasicType {
 
   TEMPLATE = 'template',
   CUSTOM_TEXT = 'custom-text',
+  EMPTY_PAGE = 'empty-page',
+  POD_CUSTOM_PAGE = 'pod-custom-page',
 }
 
 // 高级组件

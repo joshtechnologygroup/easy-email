@@ -138,7 +138,7 @@ export function MjmlToJson(data: MjmlBlockItem | string): IPage {
 
         // format padding
         formatPadding(blockData.attributes, 'padding');
-        formatPadding(blockData.attributes, 'inner-padding');
+        // formatPadding(blockData.attributes, 'inner-padding');
         return blockData;
     }
   };

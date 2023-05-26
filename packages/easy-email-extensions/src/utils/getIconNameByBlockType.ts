@@ -3,6 +3,7 @@ import { get } from 'lodash';
 
 const iconsMap = {
   [BasicType.TEXT]: 'icon-text',
+  [BasicType.CUSTOM_TEXT]: 'icon-text',
   [BasicType.SECTION]: 'icon-section',
   [BasicType.COLUMN]: 'icon-column',
   [BasicType.DIVIDER]: 'icon-divider',
@@ -33,6 +34,11 @@ const iconsMap = {
   [AdvancedType.COLUMN]: 'icon-column',
   [AdvancedType.GROUP]: 'icon-group',
   [AdvancedType.HERO]: 'icon-hero',
+
+  'custom-image': 'icon-img',
+  'custom-spacer': 'icon-spacing',
+  'custom-divider': 'icon-divider',
+  'rounded-button': 'icon-button',
 };
 
 export function getIconNameByBlockType(type: string) {
