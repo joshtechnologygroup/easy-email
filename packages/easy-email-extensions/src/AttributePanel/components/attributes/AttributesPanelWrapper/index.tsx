@@ -2,7 +2,7 @@ import { IconEye, IconEyeInvisible } from '@arco-design/web-react/icon';
 import React, { useCallback } from 'react';
 import { Stack, TextStyle, useBlock, useEditorProps } from 'easy-email-editor';
 import { MergeTags } from '../MergeTags';
-import { BasicType, BlockManager } from 'easy-email-core';
+import { AdvancedType, BasicType, BlockManager } from 'easy-email-core';
 
 export interface AttributesPanelWrapper {
   style?: React.CSSProperties;
@@ -43,7 +43,7 @@ export const AttributesPanelWrapper: React.FC<AttributesPanelWrapper> = props =>
                 spacing='extraTight'
                 alignment='center'
               >
-                <EyeIcon />
+                {(Object.values(BasicType).includes(block.type as BasicType) || Object.values(AdvancedType).includes(block.type as AdvancedType)) && <EyeIcon />}
                 <TextStyle
                   variation='strong'
                   size='large'
