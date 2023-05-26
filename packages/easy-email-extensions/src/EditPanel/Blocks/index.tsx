@@ -104,7 +104,7 @@ function BlockItem({
             style={{ fontSize: 20 }}
             iconName={getIconNameByBlockType(type)}
           />
-          <Typography.Text style={{ marginTop: 10 }}>
+          <Typography.Text style={{ marginTop: 10, wordBreak: 'normal' }}>
             {title || block?.name}
           </Typography.Text>
         </div>

@@ -48,7 +48,7 @@ export function ConfigurationDrawer({
           >
             <ConfigurationPanel
               compact={compact}
-              showSourceCode
+              showSourceCode={false}
               height={height}
               onBack={onClose}
             />

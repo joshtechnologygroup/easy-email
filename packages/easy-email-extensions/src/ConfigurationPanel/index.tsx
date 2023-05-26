@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Card, Tabs } from '@arco-design/web-react';
 import { AttributePanel } from '@extensions/AttributePanel';
 import { SourceCodePanel } from '@extensions/SourceCodePanel';
+import { BlockLayer } from '@extensions/BlockLayer';
 import { FullHeightOverlayScrollbars } from '@extensions/components/FullHeightOverlayScrollbars';
 import { IconLeft } from '@arco-design/web-react/icon';
 import styles from './index.module.scss';
@@ -34,7 +35,7 @@ export function ConfigurationPanel({
 
   return (
     <>
-      {showSourceCode ? (
+      {showSourceCode || !compact ? (
         <Tabs
           className={styles.tabs}
           renderTabHeader={(_, DefaultHeader) =>
@@ -72,17 +73,19 @@ export function ConfigurationPanel({
             </FullHeightOverlayScrollbars>
           </Tabs.TabPane>
 
-          <Tabs.TabPane
-            destroyOnHide
-            key='Source code'
-            title={
-              <div style={{ height: 40, lineHeight: '40px' }}>{t('Source code')}</div>
-            }
-          >
-            <FullHeightOverlayScrollbars height={`calc(${height} - 60px)`}>
-              <SourceCodePanel />
-            </FullHeightOverlayScrollbars>
-          </Tabs.TabPane>
+          {showSourceCode ? (
+            <Tabs.TabPane
+              destroyOnHide
+              key='Source code'
+              title={
+                <div style={{ height: 40, lineHeight: '40px' }}>{t('Source code')}</div>
+              }
+            >
+              <FullHeightOverlayScrollbars height={`calc(${height} - 60px)`}>
+                <SourceCodePanel />
+              </FullHeightOverlayScrollbars>
+            </Tabs.TabPane>
+          ) : <></>}
         </Tabs>
       ) : (
         <AttributePanel />
