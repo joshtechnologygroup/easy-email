@@ -3,6 +3,7 @@ import {
   TextAreaProps as ArcoTextAreaProps
 } from '@arco-design/web-react';
 import { Grid, Popover, Button as ArcoButton } from '@arco-design/web-react';
+import { RefInputType } from '@arco-design/web-react/es/Input/interface';
 import { MergeTags } from '@extensions';
 import { IconFont, useEditorProps, FIXED_CONTAINER_ID } from 'easy-email-editor';
 import React, { useCallback, useRef, useState, useEffect } from 'react';
@@ -21,7 +22,7 @@ export function TextArea(props: TextAreaProps) {
   } = props;
 
   const { mergeTags } = useEditorProps();
-  const inputRef = useRef<any>(null);
+  const inputRef = useRef<RefInputType>(null);
 
   const [selectedMergeTag, setSelectedMergeTag] = useState('');
   const [popupVisible, setPopupVisible] = useState(false);
