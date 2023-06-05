@@ -9,7 +9,6 @@ import {
   InputNumberProps,
   SwitchProps,
   DatePickerProps,
-  TextAreaProps,
   CheckboxGroupProps,
   TreeSelect,
   TreeSelectProps,
@@ -21,6 +20,7 @@ import { Select, SelectProps } from './Select';
 import { RadioGroup, RadioGroupProps } from './RadioGroup';
 import enhancer from './enhancer';
 import { Input, InputProps } from './Input';
+import { TextArea, TextAreaProps } from './TextArea';
 import { InputWithUnit, InputWithUnitProps } from './InputWithUnit';
 import { CheckBoxGroup } from './CheckBoxGroup';
 import { EditTab, EditTabProps } from './EditTab';
@@ -49,7 +49,7 @@ export const SearchField = enhancer<
 export const TextAreaField = enhancer<
   TextAreaProps,
   Required<ArcoInputProps>['onChange']
->(ArcoInput.TextArea, (val) => val);
+>(TextArea, (val) => val);
 
 export const NumberField = enhancer<
   InputNumberProps,

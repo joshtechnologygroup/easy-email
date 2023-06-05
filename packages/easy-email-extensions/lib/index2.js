@@ -56,7 +56,7 @@ var __async = (__this, __arguments, generator) => {
 };
 import * as React from "react";
 import React__default, { Children, isValidElement, cloneElement, createContext, useContext, Component, useMemo, memo, forwardRef, useEffect, useRef, useLayoutEffect, useState, useImperativeHandle, PureComponent, useCallback, useReducer, createRef, Fragment, createElement, Suspense } from "react";
-import { IconFont, useEditorProps, useRefState, Stack as Stack$4, getShadowRoot, DATA_CONTENT_EDITABLE_TYPE, ContentEditableType, TextStyle, useBlock, useFocusIdx, useEditorContext, useFocusBlockLayout, MergeTagBadge, FIXED_CONTAINER_ID, getPluginElement, RICH_TEXT_BAR_ID, CONTENT_EDITABLE_CLASS_NAME, getEditorRoot, DATA_CONTENT_EDITABLE_IDX, scrollBlockEleIntoView, useHoverIdx, useDataTransfer, getBlockNodeByChildEle, getDirectionPosition, DATA_ATTRIBUTE_DROP_CONTAINER, BlockAvatarWrapper, isTextBlock, getBlockNodeByIdx, useLazyState, useActiveTab, ActiveTabKeys } from "easy-email-editor";
+import { IconFont, useEditorProps, useRefState, Stack as Stack$4, FIXED_CONTAINER_ID, getShadowRoot, DATA_CONTENT_EDITABLE_TYPE, ContentEditableType, TextStyle, useBlock, useFocusIdx, useEditorContext, useFocusBlockLayout, MergeTagBadge, getPluginElement, RICH_TEXT_BAR_ID, CONTENT_EDITABLE_CLASS_NAME, getEditorRoot, DATA_CONTENT_EDITABLE_IDX, scrollBlockEleIntoView, useHoverIdx, useDataTransfer, getBlockNodeByChildEle, getDirectionPosition, DATA_ATTRIBUTE_DROP_CONTAINER, BlockAvatarWrapper, isTextBlock, getBlockNodeByIdx, useLazyState, useActiveTab, ActiveTabKeys } from "easy-email-editor";
 import { BasicType, ImageManager, EMAIL_BLOCK_CLASS_NAME, BlockManager, AdvancedType, createBlockDataByType, Operator, OperatorSymbol, isAdvancedBlock, getParentByIdx, getParentIdx, getIndexByIdx, getSiblingIdx, getNodeIdxFromClassName, getNodeIdxClassName, getPageIdx, getChildIdx, MjmlToJson, JsonToMjml, getNodeTypeFromClassName } from "easy-email-core";
 import ReactDOM, { findDOMNode, createPortal } from "react-dom";
 import { useField, Field, useForm as useForm$1, Form as Form$3, version as version$2, useFormState } from "react-final-form";
@@ -9953,7 +9953,7 @@ var __read$1c = globalThis && globalThis.__read || function(o, n) {
   }
   return ar;
 };
-var TextArea = function(props, ref) {
+var TextArea$1 = function(props, ref) {
   var _a, _b, _c;
   var className = props.className, style = props.style, wrapperStyle = props.wrapperStyle, placeholder = props.placeholder, disabled = props.disabled, error2 = props.error, propMaxLength = props.maxLength, showWordLimit = props.showWordLimit, allowClear = props.allowClear, onChange = props.onChange, onClear = props.onClear, onKeyDown = props.onKeyDown, onPressEnter = props.onPressEnter, rest = __rest$O(props, ["className", "style", "wrapperStyle", "placeholder", "disabled", "error", "maxLength", "showWordLimit", "allowClear", "onChange", "onClear", "onKeyDown", "onPressEnter"]);
   var wordLimitMaxLength = isObject$e(propMaxLength) ? propMaxLength.length : propMaxLength;
@@ -10037,9 +10037,9 @@ var TextArea = function(props, ref) {
   }
   return TextAreaElement;
 };
-var TextAreaRef = React__default.forwardRef(TextArea);
+var TextAreaRef = React__default.forwardRef(TextArea$1);
 TextAreaRef.displayName = "TextArea";
-var TextArea$1 = TextAreaRef;
+var TextArea$2 = TextAreaRef;
 function ownKeys$t(object, enumerableOnly) {
   var keys2 = Object.keys(object);
   if (Object.getOwnPropertySymbols) {
@@ -10490,7 +10490,7 @@ function Input$4(baseProps, ref) {
 var InputElement = React__default.forwardRef(Input$4);
 InputElement.displayName = "Input";
 InputElement.Search = Search$1;
-InputElement.TextArea = TextArea$1;
+InputElement.TextArea = TextArea$2;
 InputElement.Password = Password$1;
 InputElement.Group = Group$4;
 var Input$5 = InputElement;
@@ -36108,8 +36108,13 @@ function Input(props) {
     quickchange,
     value = "",
     onKeyDown: onPropsKeyDown,
-    onChange: propsOnChange
+    onChange: propsOnChange,
+    showMergeTags
   } = props;
+  const { mergeTags: mergeTags2 } = useEditorProps();
+  const inputRef = useRef(null);
+  const [selectedMergeTag, setSelectedMergeTag] = useState("");
+  const [popupVisible, setPopupVisible] = useState(false);
   const onChange = useCallback((val) => {
     propsOnChange(val);
   }, [propsOnChange]);
@@ -36135,10 +36140,104 @@ function Input(props) {
       }
     }
   }, [onPropsKeyDown, quickchange, value, onChange]);
-  return /* @__PURE__ */ React__default.createElement(Input$5, __spreadProps(__spreadValues({}, __spreadProps(__spreadValues({}, props), { quickchange: void 0 })), {
-    onChange: (value2) => onChange(value2),
-    onKeyDown
-  }));
+  useEffect(() => {
+    if (inputRef.current && selectedMergeTag) {
+      const index2 = inputRef.current.dom.value.indexOf(selectedMergeTag) + selectedMergeTag.length;
+      inputRef.current.dom.selectionStart = index2;
+      inputRef.current.dom.selectionEnd = index2;
+      inputRef.current.dom.focus();
+      setSelectedMergeTag("");
+    }
+  }, [selectedMergeTag]);
+  const onVisibleChange = useCallback((v) => {
+    setPopupVisible(v);
+  }, []);
+  const getPopoverMountNode = () => document.getElementById(FIXED_CONTAINER_ID);
+  return /* @__PURE__ */ React__default.createElement(Grid.Row, {
+    style: { width: "100%" }
+  }, /* @__PURE__ */ React__default.createElement(Input$5, __spreadProps(__spreadValues({}, __spreadProps(__spreadValues({}, props), { quickchange: void 0 })), {
+    onChange: (value2, e) => onChange(value2),
+    onKeyDown,
+    style: { flex: 1 },
+    ref: inputRef
+  })), showMergeTags && mergeTags2 && /* @__PURE__ */ React__default.createElement(Popover$1, {
+    trigger: "click",
+    popupVisible,
+    onVisibleChange,
+    getPopupContainer: getPopoverMountNode,
+    content: /* @__PURE__ */ React__default.createElement(MergeTags$1, {
+      value: props.value,
+      onChange: (value2) => {
+        if (inputRef == null ? void 0 : inputRef.current) {
+          const { selectionStart, selectionEnd } = inputRef.current.dom;
+          const inputValue = inputRef.current.dom.value;
+          const newValue = `${inputValue.substring(0, selectionStart || 0)}${value2}${inputValue.substring(selectionEnd || 0)}`;
+          propsOnChange(newValue);
+          setSelectedMergeTag(value2);
+          setPopupVisible(false);
+        }
+      }
+    })
+  }, /* @__PURE__ */ React__default.createElement(Button$4, {
+    icon: /* @__PURE__ */ React__default.createElement(IconFont, {
+      iconName: "icon-merge-tags"
+    })
+  })));
+}
+function TextArea(props) {
+  const {
+    onChange: propsOnChange,
+    showMergeTags
+  } = props;
+  const { mergeTags: mergeTags2 } = useEditorProps();
+  const inputRef = useRef(null);
+  const [selectedMergeTag, setSelectedMergeTag] = useState("");
+  const [popupVisible, setPopupVisible] = useState(false);
+  const onChange = useCallback((val) => {
+    propsOnChange(val);
+  }, [propsOnChange]);
+  useEffect(() => {
+    if (inputRef.current && selectedMergeTag) {
+      const index2 = inputRef.current.dom.value.indexOf(selectedMergeTag) + selectedMergeTag.length;
+      inputRef.current.dom.selectionStart = index2;
+      inputRef.current.dom.selectionEnd = index2;
+      inputRef.current.dom.focus();
+      setSelectedMergeTag("");
+    }
+  }, [selectedMergeTag]);
+  const onVisibleChange = useCallback((v) => {
+    setPopupVisible(v);
+  }, []);
+  const getPopoverMountNode = () => document.getElementById(FIXED_CONTAINER_ID);
+  return /* @__PURE__ */ React__default.createElement(Grid.Row, {
+    style: { width: "100%" }
+  }, /* @__PURE__ */ React__default.createElement(Input$5.TextArea, __spreadProps(__spreadValues({}, __spreadProps(__spreadValues({}, props), { quickchange: void 0 })), {
+    onChange: (value, e) => onChange(value),
+    style: { flex: 1 },
+    ref: inputRef
+  })), showMergeTags && mergeTags2 && /* @__PURE__ */ React__default.createElement(Popover$1, {
+    trigger: "click",
+    popupVisible,
+    onVisibleChange,
+    getPopupContainer: getPopoverMountNode,
+    content: /* @__PURE__ */ React__default.createElement(MergeTags$1, {
+      value: props.value,
+      onChange: (value) => {
+        if (inputRef == null ? void 0 : inputRef.current) {
+          const { selectionStart, selectionEnd } = inputRef.current.dom;
+          const inputValue = inputRef.current.dom.value;
+          const newValue = `${inputValue.substring(0, selectionStart || 0)}${value}${inputValue.substring(selectionEnd || 0)}`;
+          propsOnChange(newValue);
+          setSelectedMergeTag(value);
+          setPopupVisible(false);
+        }
+      }
+    })
+  }, /* @__PURE__ */ React__default.createElement(Button$4, {
+    icon: /* @__PURE__ */ React__default.createElement(IconFont, {
+      iconName: "icon-merge-tags"
+    })
+  })));
 }
 function InputWithUnit(props) {
   const _a = props, {
@@ -39488,23 +39587,11 @@ function BasicTools() {
     }
     removeBlock(focusIdx2);
   };
-  const handleSelectParent = () => {
-    if (document.activeElement instanceof HTMLElement) {
-      document.activeElement.blur();
-    }
-    setFocusIdx(getParentIdx(focusIdx2));
-  };
   return /* @__PURE__ */ React__default.createElement("div", {
     style: { marginRight: 40 }
   }, /* @__PURE__ */ React__default.createElement("span", {
     style: { position: "relative", marginRight: 10, color: "#fff", fontFamily: "-apple-system, BlinkMacSystemFont, San Francisco, Segoe UI" }
   }, "Text"), /* @__PURE__ */ React__default.createElement(ToolItem$1, {
-    onClick: handleSelectParent,
-    title: "Select parent block",
-    icon: /* @__PURE__ */ React__default.createElement(IconFont, {
-      iconName: "icon-back-parent"
-    })
-  }), /* @__PURE__ */ React__default.createElement(ToolItem$1, {
     onClick: handleCopy,
     title: "Copy",
     icon: /* @__PURE__ */ React__default.createElement(IconFont, {
@@ -40074,7 +40161,7 @@ function FieldWrapper(props) {
 const TextField = enhancer(Input, (value) => value);
 const InputWithUnitField = enhancer(InputWithUnit, (value) => value);
 const SearchField = enhancer(Input$5.Search, (val) => val);
-const TextAreaField = enhancer(Input$5.TextArea, (val) => val);
+const TextAreaField = enhancer(TextArea, (val) => val);
 const NumberField = enhancer(InputNumber$1, (e) => e);
 const SliderField = enhancer(Slider$1, (e) => e);
 const ColorPickerField = enhancer(ColorPicker, (e) => e);
@@ -43055,12 +43142,6 @@ function Toolbar(props) {
     }
     removeBlock(focusIdx2);
   };
-  const handleSelectParent = () => {
-    if (document.activeElement instanceof HTMLElement) {
-      document.activeElement.blur();
-    }
-    setFocusIdx(getParentIdx(focusIdx2));
-  };
   if (isText)
     return null;
   return /* @__PURE__ */ React__default.createElement(React__default.Fragment, null, /* @__PURE__ */ React__default.createElement("div", {
@@ -43104,10 +43185,6 @@ function Toolbar(props) {
       pointerEvents: "auto"
     }
   }, /* @__PURE__ */ React__default.createElement(ToolItem, {
-    width: 12,
-    iconName: "icon-back-parent",
-    onClick: handleSelectParent
-  }), /* @__PURE__ */ React__default.createElement(ToolItem, {
     iconName: "icon-copy",
     onClick: handleCopy
   }), editorProps.onAddCollection && /* @__PURE__ */ React__default.createElement(ToolItem, {

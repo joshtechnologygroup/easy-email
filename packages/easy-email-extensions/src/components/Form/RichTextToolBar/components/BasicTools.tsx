@@ -42,11 +42,6 @@ export function BasicTools() {
     <div style={{ marginRight: 40 }}>
       <span style={{ position: 'relative', marginRight: 10, color: '#fff', fontFamily: '-apple-system, BlinkMacSystemFont, San Francisco, Segoe UI' }}>Text</span>
       <ToolItem
-        onClick={handleSelectParent}
-        title='Select parent block'
-        icon={<IconFont iconName='icon-back-parent' />}
-      />
-      <ToolItem
         onClick={handleCopy}
         title='Copy'
         icon={<IconFont iconName='icon-copy' />}

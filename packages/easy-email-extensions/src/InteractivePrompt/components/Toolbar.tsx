@@ -94,34 +94,31 @@ export function Toolbar(props: { disableBlockOptions?: boolean; }) {
           >
             {focusBlock && getBlockTitle(focusBlock, false)}
           </div>
-          {!disableBlockOptions && !editorProps.disableBlockOptions && (<div
-            onClick={(e) => {
-              e.stopPropagation();
-            }}
-            onMouseDown={(ev) => {
-              ev.preventDefault();
-            }}
-            style={{
-              display: isPage ? 'none' : 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              pointerEvents: 'auto',
-            }}
-          >
-            <ToolItem
-              width={12}
-              iconName='icon-back-parent'
-              onClick={handleSelectParent}
-            />
-            <ToolItem iconName='icon-copy' onClick={handleCopy} />
-            {editorProps.onAddCollection && (
-              <ToolItem
-                iconName='icon-collection'
-                onClick={handleAddToCollection}
-              />
-            )}
-            <ToolItem iconName='icon-delete' onClick={handleDelete} />
-          </div>)}
+          {!disableBlockOptions && !editorProps.disableBlockOptions && (
+            <div
+              onClick={(e) => {
+                e.stopPropagation();
+              }}
+              onMouseDown={(ev) => {
+                ev.preventDefault();
+              }}
+              style={{
+                display: isPage ? 'none' : 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                pointerEvents: 'auto',
+              }}
+            >
+              <ToolItem iconName='icon-copy' onClick={handleCopy} />
+              {editorProps.onAddCollection && (
+                <ToolItem
+                  iconName='icon-collection'
+                  onClick={handleAddToCollection}
+                />
+              )}
+              <ToolItem iconName='icon-delete' onClick={handleDelete} />
+            </div>
+          )}
         </div>
       </div>
       {modal}

@@ -1,4 +1,4 @@
-import { SliderProps, InputNumberProps, SwitchProps, DatePickerProps, TextAreaProps, CheckboxGroupProps, TreeSelectProps } from '@arco-design/web-react';
+import { SliderProps, InputNumberProps, SwitchProps, DatePickerProps, CheckboxGroupProps, TreeSelectProps } from '@arco-design/web-react';
 import { ImageUploaderProps } from './ImageUploader';
 import { UploadFieldProps } from './UploadField';
 import { ColorPickerProps } from './ColorPicker';
@@ -6,6 +6,7 @@ import { SelectProps } from './Select';
 import { RadioGroupProps } from './RadioGroup';
 import enhancer from './enhancer';
 import { InputProps } from './Input';
+import { TextAreaProps } from './TextArea';
 import { InputWithUnitProps } from './InputWithUnit';
 import { EditTabProps } from './EditTab';
 import { EditGridTabProps } from './EditGridTab';
