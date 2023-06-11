@@ -110,7 +110,13 @@ export class Uploader {
   private checkFile(files: File[]) {
     const typeError = this.checkTypes(files);
     if (typeError) {
-      throw new Error(typeError);
+      /** 
+       * File Type Error \
+       * Return directly, error will be handled at the use case level. \
+       * Inside `onUploadImage` method.
+       */
+      return;
+      // throw new Error(typeError);
     }
 
     const sizeError = this.checkSize(files);

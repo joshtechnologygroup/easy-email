@@ -33905,7 +33905,7 @@ class Uploader {
   checkFile(files) {
     const typeError = this.checkTypes(files);
     if (typeError) {
-      throw new Error(typeError);
+      return;
     }
     const sizeError = this.checkSize(files);
     if (sizeError) {
