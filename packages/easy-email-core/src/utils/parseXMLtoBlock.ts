@@ -6,12 +6,17 @@ import { BlockManager } from '@core/utils';
 
 const domParser = new DOMParser();
 export function parseXMLtoBlock(text: string) {
-  const dom = domParser.parseFromString(text, 'text/xml');
-  const root = dom.firstChild as Element;
+  let dom = domParser.parseFromString(text, 'text/xml');
+  let root = dom.firstChild as Element;
   if (!(dom.firstChild instanceof Element)) {
-    throw new Error('Invalid content');
+    dom = domParser.parseFromString(text, 'text/html');
+    root = (dom.firstChild as Element).childNodes[1].firstChild as Element;
+
+    if (!(dom.firstChild instanceof Element)) {
+      throw new Error('Invalid content');
+    }
   }
-  if (root.tagName === 'mjml') {
+  if (root.tagName.toLowerCase() === 'mjml') {
     const { json } = mjml(text, {
       validationLevel: 'soft',
     });
@@ -24,7 +29,7 @@ export function parseXMLtoBlock(text: string) {
       throw new Error('Invalid content');
     }
     const attributes: IBlockData['attributes'] = {};
-    node.getAttributeNames().forEach((name) => {
+    node.getAttributeNames().forEach(name => {
       attributes[name] = node.getAttribute(name);
     });
     const type = node.tagName.replace('mj-', '');
@@ -43,7 +48,7 @@ export function parseXMLtoBlock(text: string) {
         },
       },
       children: [...node.children]
-        .filter((item) => item instanceof Element)
+        .filter(item => item instanceof Element)
         .map(transform as any),
     };
 
