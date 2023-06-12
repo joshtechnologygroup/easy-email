@@ -8895,12 +8895,16 @@ function isValidBlockData(data) {
 }
 const domParser = new DOMParser();
 function parseXMLtoBlock(text) {
-  const dom = domParser.parseFromString(text, "text/xml");
-  const root = dom.firstChild;
+  let dom = domParser.parseFromString(text, "text/xml");
+  let root = dom.firstChild;
   if (!(dom.firstChild instanceof Element)) {
-    throw new Error("Invalid content");
+    dom = domParser.parseFromString(text, "text/html");
+    root = dom.firstChild.childNodes[1].firstChild;
+    if (!(dom.firstChild instanceof Element)) {
+      throw new Error("Invalid content");
+    }
   }
-  if (root.tagName === "mjml") {
+  if (root.tagName.toLowerCase() === "mjml") {
     const { json: json2 } = mjml(text, {
       validationLevel: "soft"
     });
