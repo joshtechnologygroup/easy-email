@@ -4,6 +4,7 @@ import { ToolsPanel } from './components/ToolsPanel';
 import { createPortal } from 'react-dom';
 import { EASY_EMAIL_EDITOR_ID, FIXED_CONTAINER_ID } from '@/constants';
 import { useActiveTab } from '@/hooks/useActiveTab';
+import { useEditorContext } from '@/hooks/useEditorContext';
 import { ActiveTabKeys } from '../Provider/BlocksProvider';
 import { DesktopEmailPreview } from './components/DesktopEmailPreview';
 import { MobileEmailPreview } from './components/MobileEmailPreview';
@@ -20,6 +21,7 @@ import { EventManager, EventType } from '@/utils/EventManager';
 export const EmailEditor = () => {
   const { height: containerHeight, hideEditMode, hideUndoRedo, headerNode } = useEditorProps();
   const { setActiveTab, activeTab } = useActiveTab();
+  const { formState, formHelpers } = useEditorContext();
 
   const fixedContainer = useMemo(() => {
     return createPortal(<div id={FIXED_CONTAINER_ID} />, document.body);
@@ -32,6 +34,8 @@ export const EmailEditor = () => {
   const onChangeTab = useCallback((nextTab: string) => {
     setActiveTab(nextTab as any);
   }, [setActiveTab]);
+
+  const headerNodeCallback = useCallback((values, form) => headerNode?.(values, form), [headerNode]);
 
   useEffect(() => {
     if (hideEditMode) {
@@ -94,7 +98,7 @@ export const EmailEditor = () => {
           onBeforeChange={onBeforeChangeTab}
           onChange={onChangeTab}
           style={{ height: '100%', width: '100%' }}
-          tabBarMiddleContent={headerNode}
+          tabBarMiddleContent={headerNodeCallback(formState, formHelpers)}
           tabBarExtraContent={(hideEditMode || hideUndoRedo) ? <div style={{ visibility: 'hidden' }}><ToolsPanel /></div> : <ToolsPanel />}
         >
           {tabPanelList}
@@ -103,6 +107,6 @@ export const EmailEditor = () => {
         {fixedContainer}
       </div>
     ),
-    [activeTab, containerHeight, fixedContainer, onBeforeChangeTab, onChangeTab, tabPanelList, hideEditMode, hideUndoRedo, headerNode]
+    [activeTab, containerHeight, fixedContainer, onBeforeChangeTab, onChangeTab, tabPanelList, hideEditMode, hideUndoRedo, headerNodeCallback, formHelpers, formState]
   );
 };

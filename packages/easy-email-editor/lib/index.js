@@ -8352,6 +8352,7 @@ window.global = window;
 const EmailEditor = () => {
   const { height: containerHeight, hideEditMode, hideUndoRedo, headerNode } = useEditorProps();
   const { setActiveTab, activeTab } = useActiveTab();
+  const { formState, formHelpers } = useEditorContext();
   const fixedContainer = useMemo(() => {
     return createPortal(/* @__PURE__ */ React.createElement("div", {
       id: FIXED_CONTAINER_ID
@@ -8363,6 +8364,7 @@ const EmailEditor = () => {
   const onChangeTab = useCallback((nextTab) => {
     setActiveTab(nextTab);
   }, [setActiveTab]);
+  const headerNodeCallback = useCallback((values, form) => headerNode == null ? void 0 : headerNode(values, form), [headerNode]);
   useEffect(() => {
     if (hideEditMode) {
       setActiveTab(ActiveTabKeys.PC);
@@ -8414,11 +8416,11 @@ const EmailEditor = () => {
     onBeforeChange: onBeforeChangeTab,
     onChange: onChangeTab,
     style: { height: "100%", width: "100%" },
-    tabBarMiddleContent: headerNode,
+    tabBarMiddleContent: headerNodeCallback(formState, formHelpers),
     tabBarExtraContent: hideEditMode || hideUndoRedo ? /* @__PURE__ */ React.createElement("div", {
       style: { visibility: "hidden" }
     }, /* @__PURE__ */ React.createElement(ToolsPanel, null)) : /* @__PURE__ */ React.createElement(ToolsPanel, null)
-  }, tabPanelList), fixedContainer), [activeTab, containerHeight, fixedContainer, onBeforeChangeTab, onChangeTab, tabPanelList, hideEditMode, hideUndoRedo, headerNode]);
+  }, tabPanelList), fixedContainer), [activeTab, containerHeight, fixedContainer, onBeforeChangeTab, onChangeTab, tabPanelList, hideEditMode, hideUndoRedo, headerNodeCallback, formHelpers, formState]);
 };
 function useFocusBlockLayout() {
   return useContext(FocusBlockLayoutContext);

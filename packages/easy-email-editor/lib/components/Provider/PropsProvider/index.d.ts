@@ -1,4 +1,6 @@
+import { IEmailTemplate } from '../../../typings';
 import { IBlockData } from 'easy-email-core';
+import { FormApi, FormState } from 'final-form';
 import React from 'react';
 export interface CollectedBlock {
     label: string;
@@ -50,7 +52,7 @@ export interface PropsProviderProps {
     locale?: Record<string, string>;
     hideEditMode?: boolean;
     hideUndoRedo?: boolean;
-    headerNode?: React.ReactNode;
+    headerNode?: (values: FormState<IEmailTemplate, Partial<IEmailTemplate>>, form: FormApi<IEmailTemplate, Partial<IEmailTemplate>>) => React.ReactNode;
 }
 export declare const EditorPropsContext: React.Context<PropsProviderProps & {
     mergeTagGenerate: Required<PropsProviderProps['mergeTagGenerate']>;
