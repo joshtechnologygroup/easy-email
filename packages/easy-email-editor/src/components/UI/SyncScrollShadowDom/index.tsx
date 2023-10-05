@@ -3,7 +3,6 @@ import { useDomScrollHeight } from '@/hooks/useDomScrollHeight';
 import { debounce } from 'lodash';
 import React, { useState, useEffect, useCallback } from 'react';
 import ReactDOM from 'react-dom';
-import retargetEvents from 'react-shadow-dom-retarget-events';
 
 // It will be occluded by richText bar, so it needs to be offset
 const offsetTop = 50;
@@ -78,8 +77,6 @@ export const SyncScrollShadowDom: React.FC<React.HTMLProps<HTMLElement> & { isAc
     if (ref) {
       const root = ref.attachShadow({ mode: 'open' });
       setRoot(root);
-      retargetEvents(root);
-
       if (!ref.shadowRoot) return;
 
       const onScroll = () => {

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
-import retargetEvents from 'react-shadow-dom-retarget-events';
 
 export const ShadowDom: React.FC<React.HTMLProps<HTMLElement>> = (props) => {
   const [root, setRoot] = useState<null | ShadowRoot>(null);
@@ -10,7 +9,6 @@ export const ShadowDom: React.FC<React.HTMLProps<HTMLElement>> = (props) => {
     if (ref) {
       const root = ref.attachShadow({ mode: 'open' });
       setRoot(root);
-      retargetEvents(root);
     }
   }, [ref]);
 
