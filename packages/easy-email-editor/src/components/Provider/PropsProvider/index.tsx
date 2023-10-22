@@ -49,6 +49,7 @@ export interface PropsProviderProps {
   enabledLogic?: boolean;
   locale?: Record<string, string>;
   hideEditMode?: boolean;
+  hideMobilePreview?: boolean;
   hideUndoRedo?: boolean;
   headerNode?: (values: FormState<IEmailTemplate, Partial<IEmailTemplate>>, form: FormApi<IEmailTemplate, Partial<IEmailTemplate>>) => React.ReactNode;}
 

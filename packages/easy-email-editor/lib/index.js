@@ -8192,7 +8192,7 @@ var index = "";
 var iconfont = "";
 window.global = window;
 const EmailEditor = () => {
-  const { height: containerHeight, hideEditMode, hideUndoRedo, headerNode } = useEditorProps();
+  const { height: containerHeight, hideEditMode, hideMobilePreview, hideUndoRedo, headerNode } = useEditorProps();
   const { setActiveTab, activeTab } = useActiveTab();
   const { formState, formHelpers } = useEditorContext();
   const fixedContainer = useMemo(() => {
@@ -8233,16 +8233,18 @@ const EmailEditor = () => {
       })),
       key: ActiveTabKeys.PC
     }, /* @__PURE__ */ React.createElement(DesktopEmailPreview, null)),
-    /* @__PURE__ */ React.createElement(TabPane, {
-      style: { height: "calc(100% - 50px)" },
-      tab: /* @__PURE__ */ React.createElement(Stack, {
-        spacing: "tight"
-      }, /* @__PURE__ */ React.createElement(IconFont, {
-        iconName: "icon-mobile"
-      })),
-      key: ActiveTabKeys.MOBILE
-    }, /* @__PURE__ */ React.createElement(MobileEmailPreview, null))
-  ], [hideEditMode]);
+    ...!hideMobilePreview ? [
+      /* @__PURE__ */ React.createElement(TabPane, {
+        style: { height: "calc(100% - 50px)" },
+        tab: /* @__PURE__ */ React.createElement(Stack, {
+          spacing: "tight"
+        }, /* @__PURE__ */ React.createElement(IconFont, {
+          iconName: "icon-mobile"
+        })),
+        key: ActiveTabKeys.MOBILE
+      }, /* @__PURE__ */ React.createElement(MobileEmailPreview, null))
+    ] : []
+  ], [hideEditMode, hideMobilePreview]);
   return useMemo(() => /* @__PURE__ */ React.createElement("div", {
     id: EASY_EMAIL_EDITOR_ID,
     style: {
@@ -8253,7 +8255,7 @@ const EmailEditor = () => {
       minWidth: 640,
       height: containerHeight
     }
-  }, /* @__PURE__ */ React.createElement(Tabs, {
+  }, (!hideMobilePreview || !hideEditMode) && /* @__PURE__ */ React.createElement(Tabs, {
     activeTab,
     onBeforeChange: onBeforeChangeTab,
     onChange: onChangeTab,
@@ -8262,7 +8264,7 @@ const EmailEditor = () => {
     tabBarExtraContent: hideEditMode || hideUndoRedo ? /* @__PURE__ */ React.createElement("div", {
       style: { visibility: "hidden" }
     }, /* @__PURE__ */ React.createElement(ToolsPanel, null)) : /* @__PURE__ */ React.createElement(ToolsPanel, null)
-  }, tabPanelList), fixedContainer), [activeTab, containerHeight, fixedContainer, onBeforeChangeTab, onChangeTab, tabPanelList, hideEditMode, hideUndoRedo, headerNodeCallback, formHelpers, formState]);
+  }, tabPanelList), fixedContainer), [activeTab, containerHeight, fixedContainer, onBeforeChangeTab, onChangeTab, tabPanelList, hideEditMode, hideMobilePreview, hideUndoRedo, headerNodeCallback, formHelpers, formState]);
 };
 function useFocusBlockLayout() {
   return useContext(FocusBlockLayoutContext);

@@ -19,7 +19,7 @@ import { EventManager, EventType } from '@/utils/EventManager';
 (window as any).global = window; // react-codemirror
 
 export const EmailEditor = () => {
-  const { height: containerHeight, hideEditMode, hideUndoRedo, headerNode } = useEditorProps();
+  const { height: containerHeight, hideEditMode, hideMobilePreview, hideUndoRedo, headerNode } = useEditorProps();
   const { setActiveTab, activeTab } = useActiveTab();
   const { formState, formHelpers } = useEditorContext();
 
@@ -55,7 +55,8 @@ export const EmailEditor = () => {
         key={ActiveTabKeys.EDIT}
       >
         <EditEmailPreview />
-      </TabPane>]
+      </TabPane>
+    ]
       : [],
     <TabPane
       style={{ height: 'calc(100% - 50px)' }}
@@ -68,17 +69,19 @@ export const EmailEditor = () => {
     >
       <DesktopEmailPreview />
     </TabPane>,
-    <TabPane
-      style={{ height: 'calc(100% - 50px)' }}
-      tab={(
-        <Stack spacing='tight'>
-          <IconFont iconName='icon-mobile' />
-        </Stack>
-      )}
-      key={ActiveTabKeys.MOBILE}
-    >
-      <MobileEmailPreview />
-    </TabPane>], [hideEditMode]);
+    ...!hideMobilePreview ? [
+      <TabPane
+        style={{ height: 'calc(100% - 50px)' }}
+        tab={(
+          <Stack spacing='tight'>
+            <IconFont iconName='icon-mobile' />
+          </Stack>
+        )}
+        key={ActiveTabKeys.MOBILE}
+      >
+        <MobileEmailPreview />
+      </TabPane>
+    ] : []], [hideEditMode, hideMobilePreview]);
 
   return useMemo(
     () => (
@@ -93,20 +96,22 @@ export const EmailEditor = () => {
           height: containerHeight,
         }}
       >
-        <Tabs
-          activeTab={activeTab}
-          onBeforeChange={onBeforeChangeTab}
-          onChange={onChangeTab}
-          style={{ height: '100%', width: '100%' }}
-          tabBarMiddleContent={headerNodeCallback(formState, formHelpers)}
-          tabBarExtraContent={(hideEditMode || hideUndoRedo) ? <div style={{ visibility: 'hidden' }}><ToolsPanel /></div> : <ToolsPanel />}
-        >
-          {tabPanelList}
-        </Tabs>
+        {(!hideMobilePreview || !hideEditMode) && (
+          <Tabs
+            activeTab={activeTab}
+            onBeforeChange={onBeforeChangeTab}
+            onChange={onChangeTab}
+            style={{ height: '100%', width: '100%' }}
+            tabBarMiddleContent={headerNodeCallback(formState, formHelpers)}
+            tabBarExtraContent={(hideEditMode || hideUndoRedo) ? <div style={{ visibility: 'hidden' }}><ToolsPanel /></div> : <ToolsPanel />}
+          >
+            {tabPanelList}
+          </Tabs>
+        )}
 
         {fixedContainer}
       </div>
     ),
-    [activeTab, containerHeight, fixedContainer, onBeforeChangeTab, onChangeTab, tabPanelList, hideEditMode, hideUndoRedo, headerNodeCallback, formHelpers, formState]
+    [activeTab, containerHeight, fixedContainer, onBeforeChangeTab, onChangeTab, tabPanelList, hideEditMode, hideMobilePreview, hideUndoRedo, headerNodeCallback, formHelpers, formState]
   );
 };
