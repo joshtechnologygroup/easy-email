@@ -51,7 +51,7 @@ const Tabs: React.FC<TabsProps> = (props) => {
   return (
     <div style={props.style} className={props.className}>
       <div className='easy-email-editor-tabWrapper'>
-        <Stack distribution='equalSpacing' alignment='center'>
+        <Stack distribution='equalSpacing' alignment='center' wrap={false}>
           <Stack alignment='center'>
             {React.Children.map(
               props.children as any,

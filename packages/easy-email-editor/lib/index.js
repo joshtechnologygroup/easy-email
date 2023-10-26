@@ -8164,7 +8164,8 @@ const Tabs = (props) => {
     className: "easy-email-editor-tabWrapper"
   }, /* @__PURE__ */ React.createElement(Stack, {
     distribution: "equalSpacing",
-    alignment: "center"
+    alignment: "center",
+    wrap: false
   }, /* @__PURE__ */ React.createElement(Stack, {
     alignment: "center"
   }, React.Children.map(props.children, (item, index2) => {
