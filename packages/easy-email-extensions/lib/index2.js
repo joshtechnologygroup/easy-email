@@ -36457,6 +36457,9 @@ function Link$1(props) {
       trigger: "click",
       color: "#fff",
       position: "tl",
+      style: {
+        zIndex: 2400
+      },
       content: /* @__PURE__ */ React__default.createElement("div", {
         style: { color: "#333" }
       }, /* @__PURE__ */ React__default.createElement(Stack$4, {
@@ -39304,7 +39307,7 @@ function MergeTags(props) {
     position: "left",
     popupVisible: visible,
     onVisibleChange,
-    style: { zIndex: 1200 },
+    style: { zIndex: 2400 },
     content: /* @__PURE__ */ React__default.createElement(React__default.Fragment, null, /* @__PURE__ */ React__default.createElement(MergeTags$1, {
       value: "",
       onChange
@@ -39358,7 +39361,10 @@ function IconBgColor({ selectionRange, execCommand, getPopoverMountNode }) {
     showInput: false,
     position: "tl",
     onChange: (color22) => execCommand("hiliteColor", color22),
-    getPopupContainer: getPopoverMountNode
+    getPopupContainer: getPopoverMountNode,
+    style: {
+      zIndex: 2400
+    }
   }, /* @__PURE__ */ React__default.createElement(ToolItem$1, {
     icon: /* @__PURE__ */ React__default.createElement("div", {
       style: {
@@ -39390,7 +39396,10 @@ function IconFontColor({ selectionRange, execCommand, getPopoverMountNode }) {
     position: "tl",
     onChange: (color22) => execCommand("foreColor", color22),
     getPopupContainer: getPopoverMountNode,
-    showInput: false
+    showInput: false,
+    style: {
+      zIndex: 2400
+    }
   }, /* @__PURE__ */ React__default.createElement(ToolItem$1, {
     icon: /* @__PURE__ */ React__default.createElement("div", {
       style: {
@@ -39681,6 +39690,9 @@ function FontSize(props) {
     className: "easy-email-extensions-Tools-Popover",
     popupVisible: visible,
     onVisibleChange,
+    style: {
+      zIndex: 2400
+    },
     content: /* @__PURE__ */ React__default.createElement(React__default.Fragment, null, /* @__PURE__ */ React__default.createElement("style", null, styleText$1), /* @__PURE__ */ React__default.createElement("div", {
       style: {
         maxWidth: 150,
@@ -39784,10 +39796,6 @@ function Tools(props) {
   }, !disableBlockOptions && /* @__PURE__ */ React__default.createElement(BasicTools, null), mergeTags2 && /* @__PURE__ */ React__default.createElement(MergeTags, {
     execCommand,
     getPopupContainer: getPopoverMountNode
-  }), /* @__PURE__ */ React__default.createElement("div", {
-    className: "easy-email-extensions-divider"
-  }), /* @__PURE__ */ React__default.createElement("div", {
-    className: "easy-email-extensions-divider"
   }), /* @__PURE__ */ React__default.createElement("div", {
     className: "easy-email-extensions-divider"
   }), /* @__PURE__ */ React__default.createElement(FontSize, {
