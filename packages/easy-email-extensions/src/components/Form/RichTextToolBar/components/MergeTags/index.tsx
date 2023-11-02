@@ -33,7 +33,7 @@ export function MergeTags(props: MergeTagsProps) {
       position='left'
       popupVisible={visible}
       onVisibleChange={onVisibleChange}
-      style={{ zIndex: 1200 }}
+      style={{ zIndex: 2400 }}
       content={(
         <>
           <MergeTagsOptions

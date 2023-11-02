@@ -130,13 +130,13 @@ export function Tools(props: ToolsProps) {
             getPopupContainer={getPopoverMountNode}
           />
         )}
-        <div className='easy-email-extensions-divider' />
+        {/* <div className='easy-email-extensions-divider' /> */}
         <div className='easy-email-extensions-divider' />
         {/* <FontFamily
           execCommand={execCommand}
           getPopupContainer={getPopoverMountNode}
         /> */}
-        <div className='easy-email-extensions-divider' />
+        {/* <div className='easy-email-extensions-divider' /> */}
         <FontSize
           execCommand={execCommand}
           getPopupContainer={getPopoverMountNode}

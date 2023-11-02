@@ -25,6 +25,9 @@ export function IconFontColor({ selectionRange, execCommand, getPopoverMountNode
       onChange={(color) => execCommand('foreColor', color)}
       getPopupContainer={getPopoverMountNode}
       showInput={false}
+      style={{
+        zIndex: 2400
+      }}
     >
       <ToolItem
         icon={(

@@ -80,6 +80,9 @@ export function Link(props: LinkProps) {
             trigger='click'
             color='#fff'
             position='tl'
+            style={{
+              zIndex: 2400
+            }}
             content={(
               <div style={{ color: '#333' }}>
                 <Stack vertical spacing='none'>
